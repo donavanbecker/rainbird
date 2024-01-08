@@ -1,0 +1,79 @@
+{
+  "displayName": "Rainbird",
+  "name": "rainbird",
+  "version": "0.1.0",
+  "description": "The Rainbird plugin allows you to access your Rainbird device(s) from HomeKit.",
+  "author": "donavanbecker",
+  "license": "Apache-2.0",
+  "icon": "https://raw.githubusercontent.com/donavanbecker/homebridge-rainbird/beta-1.11.3/branding/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donavanbecker/homebridge-rainbird.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/donavanbecker/homebridge-rainbird/issues"
+  },
+  "engines": {
+    "node": "^18 || ^20"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "check": "npm install && npm outdated",
+    "update": "ncu -u && npm update && npm install",
+    "lint": "eslint src/**.ts",
+    "build": "rimraf ./dist && tsc",
+    "prepublishOnly": "npm run lint && npm run build",
+    "postpublish": "npm run clean",
+    "clean": "rimraf ./dist",
+    "test": "eslint src/**.ts"
+  },
+  "funding": [
+    {
+      "type": "Paypal - donavanbecker",
+      "url": "https://paypal.me/donavanbecker"
+    },
+    {
+      "type": "GitHub - donavanbecker",
+      "url": "https://github.com/sponsors/donavanbecker"
+    },
+    {
+      "type": "Paypal - Mantorok1",
+      "url": "https://paypal.me/Mantorok1"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "@donavanbecker:registry": "https://npm.pkg.github.com/"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "irrigation",
+    "valve",
+    "rainbird"
+  ],
+  "dependencies": {
+    "@homebridge/plugin-ui-utils": "^1.0.1",
+    "aes-js": "^3.1.2",
+    "axios": "1.6.5",
+    "concurrent-queue": "^7.0.2",
+    "queue": "6.0.2",
+    "rxjs": "^7.8.1",
+    "text-encoder": "0.0.4"
+  },
+  "devDependencies": {
+    "@types/aes-js": "^3.1.4",
+    "@types/better-queue": "^3.8.6",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "homebridge": "^1.7.0",
+    "nodemon": "^3.0.3",
+    "npm-check-updates": "^16.14.12",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "typescript-axios-wb": "^1.0.3"
+  }
+}
