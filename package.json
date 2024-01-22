@@ -2,17 +2,29 @@
   "displayName": "Rainbird",
   "name": "rainbird",
   "version": "0.2.0",
-  "description": "The Rainbird plugin allows you to access your Rainbird device(s) from HomeKit.",
-  "author": "donavanbecker",
-  "license": "Apache-2.0",
-  "icon": "https://raw.githubusercontent.com/donavanbecker/homebridge-rainbird/beta-1.11.3/branding/icon.png",
+  "description": "The Rainbird library allows you to access your RainBird Controller.",
+  "author": {
+      "name": "donavanbecker",
+      "url": "https://github.com/donavanbecker"
+  },
+  "contributors":[
+    {
+      "name": "donavanbecker",
+      "url": "https://github.com/donavanbecker"
+    },
+    {
+      "name": "mantorok1",
+      "url": "https://github.com/mantorok1"
+    }
+  ],
+  "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/donavanbecker/homebridge-rainbird.git"
+    "url": "https://github.com/donavanbecker/rainbird.git"
   },
   "type": "module",
   "bugs": {
-    "url": "https://github.com/donavanbecker/homebridge-rainbird/issues"
+    "url": "https://github.com/donavanbecker/rainbird/issues"
   },
   "engines": {
     "node": "^18 || ^20"
@@ -52,8 +64,7 @@
     "rainbird"
   ],
   "dependencies": {
-    "@homebridge/plugin-ui-utils": "^1.0.1",
-    "loglevel":"^1.8.1",
+    "loglevel": "^1.8.1",
     "aes-js": "^3.1.2",
     "axios": "1.6.5",
     "concurrent-queue": "^7.0.2",
