@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class IrrigationDelaySetRequest extends Request {
   private _days = 0;

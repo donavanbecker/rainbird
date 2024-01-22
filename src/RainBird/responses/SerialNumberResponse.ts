@@ -1,4 +1,4 @@
-import { Response } from './Response';
+import { Response } from './Response.js';
 
 export class SerialNumberResponse extends Response {
   private readonly _serialNumber: string;

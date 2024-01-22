@@ -1,9 +1,9 @@
 import * as events from 'events';
 import Queue from 'queue';
 import { Logger } from 'homebridge';
-import { RainBirdClient } from './RainBirdClient';
+import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
-import { AcknowledgedResponse } from './responses/AcknowledgedResponse';
+import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
 
 type RainBirdMetaData = {
   modelNumber: number,
@@ -653,7 +653,7 @@ export class RainBirdService extends events.EventEmitter {
     const page2 = (await this._client.getProgramZoneState(2)).toBuffer();
 
     this.log.warn('This plugin does not fully support your RainBird model and may not not correctly show the zone\'s state such as time remaining');
-    this.log.warn('If you would like better support please create a GitHub issue [https://github.com/donavanbecker/homebridge-rainbird/issues]');
+    this.log.warn('If you would like better support please create a GitHub issue [https://github.com/donavanbecker/rainbird/issues]');
     this.log.warn('and supply the following details:');
     this.log.warn(`  Model: ${this.model}, Zones: ${[...this.zones.keys()]}`);
     this.log.warn(`  ProgramZoneState Page 0: ${[...page0.values()]}`);

@@ -1,4 +1,4 @@
-import { Response } from './Response';
+import { Response } from './Response.js';
 
 export class RainSensorStateResponse extends Response {
   private readonly _setPointReached: boolean;

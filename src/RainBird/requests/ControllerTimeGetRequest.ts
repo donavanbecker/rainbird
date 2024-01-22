@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class ControllerTimeGetRequest extends Request {
   get type(): number {

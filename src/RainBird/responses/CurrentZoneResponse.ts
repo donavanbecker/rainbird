@@ -1,4 +1,4 @@
-import { Response } from './Response';
+import { Response } from './Response.js';
 
 export class CurrentZoneResponse extends Response {
   private readonly _page: number;

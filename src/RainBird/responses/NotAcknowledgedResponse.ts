@@ -1,4 +1,4 @@
-import { Response } from './Response';
+import { Response } from './Response.js';
 
 export class NotAcknowledgedResponse extends Response {
   private readonly _commandType: number;
