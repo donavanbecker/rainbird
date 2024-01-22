@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class RunZoneRequest extends Request {
   private _zone = 0;

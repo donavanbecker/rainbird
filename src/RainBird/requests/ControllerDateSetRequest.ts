@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class ControllerDateSetRequest extends Request {
   private _day = 0;

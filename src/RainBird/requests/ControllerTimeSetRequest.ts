@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class ControllerTimeSetRequest extends Request {
   private _hour = 0;

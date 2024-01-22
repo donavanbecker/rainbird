@@ -1,4 +1,4 @@
-import { Request } from './Request';
+import { Request } from './Request.js';
 
 export class ControllerStateRequest extends Request {
   get type(): number {

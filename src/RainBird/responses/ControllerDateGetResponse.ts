@@ -1,4 +1,4 @@
-import { Response } from './Response';
+import { Response } from './Response.js';
 
 export class ControllerDateGetResponse extends Response {
   private readonly _year: number;
