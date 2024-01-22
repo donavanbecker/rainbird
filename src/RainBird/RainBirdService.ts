@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import log, { Logger } from 'loglevel';
+import log from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
@@ -35,7 +35,7 @@ type RainBirdState = {
 }
 
 export class RainBirdService extends events.EventEmitter {
-  private readonly log: Logger;
+  private readonly log: log.Logger;
   private readonly _client: RainBirdClient;
 
   private _metadata: RainBirdMetaData = {

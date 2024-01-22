@@ -4,7 +4,7 @@ import aesjs from 'aes-js';
 import cq from 'concurrent-queue';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { Logger } from 'loglevel';
+import log from 'loglevel';
 import { Request } from './requests/Request.js';
 import { Response } from './responses/Response.js';
 import { ModelAndVersionRequest } from './requests/ModelAndVersionRequest.js';
@@ -57,7 +57,7 @@ export class RainBirdClient {
   constructor(
     private readonly address: string,
     private readonly password: string,
-    private readonly log: Logger,
+    private readonly log: log.Logger,
     private readonly showRequestResponse: boolean) {
   }
 
