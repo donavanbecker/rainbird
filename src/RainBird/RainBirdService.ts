@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import { getLogger, Logger } from 'loglevel';
+import { Logger } from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
@@ -67,16 +67,19 @@ export class RainBirdService extends events.EventEmitter {
 
   private readonly ESP_ME3 = 0x0009;
 
-  constructor(private readonly options: {
-    address: string,
-    password: string,
-    refreshRate?: number,
-    showRequestResponse: boolean,
-    syncTime: boolean,
-  }) {
+  constructor(
+    log: Logger,
+    private readonly options: {
+      address: string,
+      password: string,
+      refreshRate?: number,
+      showRequestResponse: boolean,
+      syncTime: boolean,
+    },
+  ) {
     super();
     this.setMaxListeners(50);
-    this.log = getLogger('RainBirdService');
+    this.log = log;
     this._syncTime = options.syncTime;
     this._client = new RainBirdClient(options.address, options.password, this.log, options.showRequestResponse);
 
@@ -214,7 +217,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   deactivateAllZones(): void {
-    for(const zone of this.zones) {
+    for (const zone of this.zones) {
       this._zones[zone].active = false;
       this._zones[zone].queued = false;
     }
@@ -305,7 +308,7 @@ export class RainBirdService extends events.EventEmitter {
         this._zones[zone].durationTime = new Date();
       }
 
-    } catch(error) {
+    } catch (error) {
       this.log.warn(`Zone ${zone}: Failed to start [${error}]`);
     } finally {
       this._statusRefreshSubject.next();
@@ -429,7 +432,7 @@ export class RainBirdService extends events.EventEmitter {
     if (this._rainSetPointReached !== status.rainSensorSetPointReached) {
       this._rainSetPointReached = status.rainSensorSetPointReached;
       this.emit('rain_sensor_state');
-      this.log.info(`Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached': 'Clear'}`);
+      this.log.info(`Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached' : 'Clear'}`);
     }
   }
 
