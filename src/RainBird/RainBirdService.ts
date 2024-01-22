@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import { Logger } from 'loglevel';
+import { getLogger, Logger } from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
@@ -71,15 +71,14 @@ export class RainBirdService extends events.EventEmitter {
     address: string,
     password: string,
     refreshRate?: number,
-    log: Logger,
     showRequestResponse: boolean,
     syncTime: boolean,
   }) {
     super();
     this.setMaxListeners(50);
-    this.log = options.log;
+    this.log = getLogger('RainBirdService');
     this._syncTime = options.syncTime;
-    this._client = new RainBirdClient(options.address, options.password, options.log, options.showRequestResponse);
+    this._client = new RainBirdClient(options.address, options.password, this.log, options.showRequestResponse);
 
     this._statusRefreshSubject
       .pipe(
