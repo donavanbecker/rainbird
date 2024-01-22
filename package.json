@@ -3,6 +3,7 @@
   "name": "rainbird",
   "version": "0.2.0",
   "description": "The Rainbird library allows you to access your RainBird Controller.",
+  "homepage": "https://github.com/donavanbecker/rainbird#readme",
   "author": {
       "name": "donavanbecker",
       "url": "https://github.com/donavanbecker"
@@ -54,10 +55,6 @@
       "url": "https://paypal.me/Mantorok1"
     }
   ],
-  "publishConfig": {
-    "access": "public",
-    "@donavanbecker:registry": "https://npm.pkg.github.com/"
-  },
   "keywords": [
     "irrigation",
     "valve",
