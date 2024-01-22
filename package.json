@@ -47,13 +47,13 @@
     "@donavanbecker:registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
-    "homebridge-plugin",
     "irrigation",
     "valve",
     "rainbird"
   ],
   "dependencies": {
     "@homebridge/plugin-ui-utils": "^1.0.1",
+    "loglevel":"^1.8.1",
     "aes-js": "^3.1.2",
     "axios": "1.6.5",
     "concurrent-queue": "^7.0.2",
@@ -68,8 +68,6 @@
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "eslint": "^8.56.0",
-    "homebridge": "^1.7.0",
-    "nodemon": "^3.0.3",
     "npm-check-updates": "^16.14.12",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",

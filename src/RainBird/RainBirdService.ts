@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import { Logger } from 'homebridge';
+import { Logger } from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';

@@ -4,7 +4,7 @@ import aesjs from 'aes-js';
 import cq from 'concurrent-queue';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { Logger } from 'homebridge';
+import { Logger } from 'loglevel';
 import { Request } from './requests/Request.js';
 import { Response } from './responses/Response.js';
 import { ModelAndVersionRequest } from './requests/ModelAndVersionRequest.js';
