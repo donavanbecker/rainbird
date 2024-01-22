@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import { Logger } from 'loglevel';
+import log, { Logger } from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
@@ -68,7 +68,6 @@ export class RainBirdService extends events.EventEmitter {
   private readonly ESP_ME3 = 0x0009;
 
   constructor(
-    log: Logger,
     private readonly options: {
       address: string,
       password: string,
@@ -79,7 +78,7 @@ export class RainBirdService extends events.EventEmitter {
   ) {
     super();
     this.setMaxListeners(50);
-    this.log = log;
+    this.log = log; // Add a default value for the log parameter
     this._syncTime = options.syncTime;
     this._client = new RainBirdClient(options.address, options.password, this.log, options.showRequestResponse);
 
