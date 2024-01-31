@@ -1,6 +1,6 @@
 import * as events from 'events';
 import Queue from 'queue';
-import { Logger } from 'homebridge';
+import log from 'loglevel';
 import { RainBirdClient } from './RainBirdClient.js';
 import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
@@ -35,7 +35,7 @@ type RainBirdState = {
 }
 
 export class RainBirdService extends events.EventEmitter {
-  private readonly log: Logger;
+  private readonly log: log.Logger;
   private readonly _client: RainBirdClient;
 
   private _metadata: RainBirdMetaData = {
@@ -67,19 +67,20 @@ export class RainBirdService extends events.EventEmitter {
 
   private readonly ESP_ME3 = 0x0009;
 
-  constructor(private readonly options: {
-    address: string,
-    password: string,
-    refreshRate?: number,
-    log: Logger,
-    showRequestResponse: boolean,
-    syncTime: boolean,
-  }) {
+  constructor(
+    private readonly options: {
+      address: string,
+      password: string,
+      refreshRate?: number,
+      showRequestResponse: boolean,
+      syncTime: boolean,
+    },
+  ) {
     super();
     this.setMaxListeners(50);
-    this.log = options.log;
+    this.log = log; // Add a default value for the log parameter
     this._syncTime = options.syncTime;
-    this._client = new RainBirdClient(options.address, options.password, options.log, options.showRequestResponse);
+    this._client = new RainBirdClient(options.address, options.password, this.log, options.showRequestResponse);
 
     this._statusRefreshSubject
       .pipe(
@@ -215,7 +216,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   deactivateAllZones(): void {
-    for(const zone of this.zones) {
+    for (const zone of this.zones) {
       this._zones[zone].active = false;
       this._zones[zone].queued = false;
     }
@@ -306,7 +307,7 @@ export class RainBirdService extends events.EventEmitter {
         this._zones[zone].durationTime = new Date();
       }
 
-    } catch(error) {
+    } catch (error) {
       this.log.warn(`Zone ${zone}: Failed to start [${error}]`);
     } finally {
       this._statusRefreshSubject.next();
@@ -430,7 +431,7 @@ export class RainBirdService extends events.EventEmitter {
     if (this._rainSetPointReached !== status.rainSensorSetPointReached) {
       this._rainSetPointReached = status.rainSensorSetPointReached;
       this.emit('rain_sensor_state');
-      this.log.info(`Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached': 'Clear'}`);
+      this.log.info(`Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached' : 'Clear'}`);
     }
   }
 

@@ -55,7 +55,7 @@
     ],
     "no-console": [
       "warn"
-    ], // use the provided Homebridge log method instead
+    ], // use the provided log method instead
     "no-non-null-assertion": [
       "off"
     ],

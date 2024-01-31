@@ -153,6 +153,5 @@ dist
 .yarn/build-state.yml
 .pnp.\*
 
-# Homebridge Testing
-
+# others
 .DS_Store
