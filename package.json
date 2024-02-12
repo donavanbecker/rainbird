@@ -1,7 +1,7 @@
 {
   "displayName": "Rainbird",
   "name": "rainbird",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Rainbird library allows you to access your RainBird Controller.",
   "homepage": "https://github.com/donavanbecker/rainbird#readme",
   "author": {
@@ -34,7 +34,6 @@
   "scripts": {
     "check": "npm install && npm outdated",
     "update": "ncu -u && npm update && npm install",
-    "updateDependencies": "npm run check && npm run update",
     "lint": "eslint src/**.ts",
     "build": "rimraf ./dist && tsc",
     "prepublishOnly": "npm run lint && npm run build",
@@ -73,11 +72,11 @@
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
     "@types/better-queue": "^3.8.6",
-    "@types/node": "^20.11.13",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
+    "@types/node": "^20.11.17",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.56.0",
-    "npm-check-updates": "^16.14.14",
+    "npm-check-updates": "^16.14.15",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
