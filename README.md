@@ -24,28 +24,9 @@ To use this library in Node, install it from the command line:
 npm -save install rainbird
 ```
 
-## Configuration
+## Usage
 
-```
-import { RainBirdService } from 'rainbird';
-```
-1. `ipaddress`: controller's local IP Address
-2. `password`: controller's password
-3. `refreshRate`: refreshRate of how often to look for changes, optional.
-4. `log`: this is used to pass through for logging
-5. `showRequestResponse`: this will show rainbird request logs, boolean,
-6. `syncTime`: will sync the machine time to the controller, boolan,
-
-```
-const rainbird = new RainBirdService({
-        address: ipaddress,
-        password: password!,
-        refreshRate: refreshRate,
-        log: this.log,
-        showRequestResponse: showRequestResponse
-        syncTime: device.syncTime!,
-      });
-```
+See the [API Guide](./docs/api_guide.md) for details.
 
 ## Collaborators
 
