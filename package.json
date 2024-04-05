@@ -63,7 +63,7 @@
   "dependencies": {
     "loglevel": "^1.9.1",
     "aes-js": "^3.1.2",
-    "axios": "1.6.7",
+    "axios": "1.6.8",
     "concurrent-queue": "^7.0.2",
     "queue": "6.0.2",
     "rxjs": "^7.8.1",
@@ -72,15 +72,15 @@
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
     "@types/better-queue": "^3.8.6",
-    "@types/node": "^20.11.17",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "eslint": "^8.56.0",
-    "nodemon": "^3.0.3",
-    "npm-check-updates": "^16.14.12",
+    "@types/node": "^20.12.4",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "npm-check-updates": "^16.14.18",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.4",
     "typescript-axios-wb": "^1.0.3"
   }
 }
