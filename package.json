@@ -63,7 +63,7 @@
   "dependencies": {
     "loglevel": "^1.9.1",
     "aes-js": "^3.1.2",
-    "axios": "1.6.8",
+    "axios": "1.7.2",
     "concurrent-queue": "^7.0.2",
     "queue": "6.0.2",
     "rxjs": "^7.8.1",
@@ -71,13 +71,13 @@
   },
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
-    "@types/better-queue": "^3.8.6",
-    "@eslint/js": "^9.3.0",
-    "@stylistic/eslint-plugin-js": "^2.1.0",
-    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.12.12",
+    "@types/eslint__js": "^8.42.3",
+    "@types/better-queue": "^3.8.6",
+    "@stylistic/eslint-plugin": "^2.1.0",
     "eslint": "^9.3.0",
-    "globals": "^15.2.0",
+    "@eslint/js": "^9.3.0",
+    "globals": "^15.3.0",
     "homebridge": "^1.8.2",
     "homebridge-config-ui-x": "4.56.2",
     "nodemon": "^3.1.0",
@@ -86,6 +86,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "typescript-axios-wb": "^1.0.3",
-    "typescript-eslint": "^8.0.0-alpha.13"
+    "typescript-eslint": "^8.0.0-alpha.14"
   }
 }
