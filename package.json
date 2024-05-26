@@ -1,7 +1,7 @@
 {
   "displayName": "Rainbird",
   "name": "rainbird",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Rainbird library allows you to access your RainBird Controller.",
   "homepage": "https://github.com/donavanbecker/rainbird#readme",
   "author": {
@@ -63,7 +63,7 @@
   "dependencies": {
     "loglevel": "^1.9.1",
     "aes-js": "^3.1.2",
-    "axios": "1.6.7",
+    "axios": "1.7.2",
     "concurrent-queue": "^7.0.2",
     "queue": "6.0.2",
     "rxjs": "^7.8.1",
@@ -71,15 +71,21 @@
   },
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
+    "@types/node": "^20.12.12",
+    "@types/eslint__js": "^8.42.3",
     "@types/better-queue": "^3.8.6",
-    "@types/node": "^20.11.13",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
-    "eslint": "^8.56.0",
-    "npm-check-updates": "^16.14.14",
-    "rimraf": "^5.0.5",
+    "@stylistic/eslint-plugin": "^2.1.0",
+    "eslint": "^9.3.0",
+    "@eslint/js": "^9.3.0",
+    "globals": "^15.3.0",
+    "homebridge": "^1.8.2",
+    "homebridge-config-ui-x": "4.56.2",
+    "nodemon": "^3.1.1",
+    "npm-check-updates": "^16.14.20",
+    "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "typescript-axios-wb": "^1.0.3"
+    "typescript": "^5.4.5",
+    "typescript-axios-wb": "^1.0.3",
+    "typescript-eslint": "^8.0.0-alpha.16"
   }
 }

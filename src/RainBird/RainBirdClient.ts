@@ -1,10 +1,12 @@
+import * as events from 'events';
 import crypto from 'crypto';
 import encoder from 'text-encoder';
 import aesjs from 'aes-js';
 import cq from 'concurrent-queue';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import log from 'loglevel';
+import { LogLevel } from './LogLevel';
+import { EventType } from './EventType';
 import { Request } from './requests/Request.js';
 import { Response } from './responses/Response.js';
 import { ModelAndVersionRequest } from './requests/ModelAndVersionRequest.js';
@@ -47,7 +49,7 @@ type RainBirdRequest = {
   postDelay: number
 }
 
-export class RainBirdClient {
+export class RainBirdClient extends events.EventEmitter {
   private readonly RETRY_DELAY = 60;
 
   private requestQueue = cq()
@@ -57,8 +59,9 @@ export class RainBirdClient {
   constructor(
     private readonly address: string,
     private readonly password: string,
-    private readonly log: log.Logger,
-    private readonly showRequestResponse: boolean) {
+    private readonly showRequestResponse: boolean,
+  ) {
+    super();
   }
 
   public async getModelAndVersion(): Promise<ModelAndVersionResponse> {
@@ -247,7 +250,7 @@ export class RainBirdClient {
 
   private async sendRequest(request: RainBirdRequest): Promise<Response | undefined> {
     if (this.showRequestResponse) {
-      this.log.warn(`[${this.address}] Request:  ${request.type}`);
+      this.emit(EventType.LOG, LogLevel.WARN, `[${this.address}] Request:  ${request.type}`);
     }
 
     // eslint-disable-next-line no-constant-condition
@@ -268,12 +271,12 @@ export class RainBirdClient {
 
         return response;
       } catch (error) {
-        this.log.warn(`RainBird controller request failed. [${error}]`);
-        this.log.warn(`Failed Request: ${request.type}`);
+        this.emit(EventType.LOG, LogLevel.WARN, `RainBird controller request failed. [${error}]`);
+        this.emit(EventType.LOG, LogLevel.WARN, `Failed Request: ${request.type}`);
         if (!request.retry) {
           break;
         }
-        this.log.warn(`Will retry in ${this.RETRY_DELAY} seconds`);
+        this.emit(EventType.LOG, LogLevel.WARN, `Will retry in ${this.RETRY_DELAY} seconds`);
         await this.delay(this.RETRY_DELAY);
       }
     }
@@ -284,16 +287,16 @@ export class RainBirdClient {
     const decryptedResponse = JSON.parse(this.decrypt(encryptedResponse).replace(/[\x10\x0A\x00]/g, ''));
 
     if (!decryptedResponse) {
-      this.log.error('No response received');
+      this.emit(EventType.LOG, LogLevel.ERROR, 'No response received');
       return;
     }
     if (decryptedResponse.error) {
-      this.log.error(
+      this.emit(EventType.LOG, LogLevel.ERROR,
         `Received error from Rainbird controller ${decryptedResponse.error.code}: ${decryptedResponse.error.message}`);
       return;
     }
     if (!decryptedResponse.result) {
-      this.log.error('Invalid response received');
+      this.emit(EventType.LOG, LogLevel.ERROR, 'Invalid response received');
       return;
     }
     const data = Buffer.from(decryptedResponse.result.data, 'hex');
@@ -344,7 +347,7 @@ export class RainBirdClient {
     }
 
     if (this.showRequestResponse) {
-      this.log.warn(`[${this.address}] Response: ${response ?? 'Unknown'}`);
+      this.emit(EventType.LOG, LogLevel.WARN, `[${this.address}] Response: ${response ?? 'Unknown'}`);
     }
 
     return response;
