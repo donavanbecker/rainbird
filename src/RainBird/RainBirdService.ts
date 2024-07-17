@@ -1,5 +1,5 @@
 import * as events from 'events';
-import Queue from 'queue';
+import PQueue from 'p-queue';
 import { LogLevel } from './LogLevel';
 import { EventType } from './EventType';
 import { RainBirdClient } from './RainBirdClient.js';
@@ -61,10 +61,10 @@ export class RainBirdService extends events.EventEmitter {
   private _syncTime = false;
   private _lastSupportWarning = 0;
 
-  private zoneQueue: Queue = new Queue({
+  private zoneQueue: PQueue = new PQueue({
     concurrency: 1,
     timeout: 3600000,
-    autostart: true,
+    autoStart: true,
   });
 
   private readonly ESP_ME3 = 0x0009;
@@ -199,7 +199,7 @@ export class RainBirdService extends events.EventEmitter {
 
     this._zones[zone].queued = true;
     this._zones[zone].remainingDuration = duration;
-    this.zoneQueue.push(this.startZone.bind(this, zone, duration));
+    this.zoneQueue.add(this.startZone.bind(this, zone, duration));
   }
 
   async deactivateZone(zone: number): Promise<void> {

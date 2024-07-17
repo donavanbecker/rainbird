@@ -1,8 +1,8 @@
 import * as events from 'events';
 import crypto from 'crypto';
 import encoder from 'text-encoder';
-import aesjs from 'aes-js';
-import cq from 'concurrent-queue';
+import aesjs from 'aes-js';;
+import PQueue from 'p-queue';
 import axios from 'axios';
 
 import { LogLevel } from './LogLevel';
@@ -54,9 +54,13 @@ type RainBirdRequest = {
 export class RainBirdClient extends events.EventEmitter {
   private readonly RETRY_DELAY = 60;
 
-  private requestQueue = cq()
+  /*private requestQueue = cq()
     .limit({ concurrency: 1 })
-    .process(this.sendRequest.bind(this));
+    .process(this.sendRequest.bind(this));*/
+
+  queue = new PQueue({
+    concurrency: 1,
+  });
 
   constructor(
     private readonly address: string,
@@ -72,7 +76,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as ModelAndVersionResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as ModelAndVersionResponse;
+    //return await this.requestQueue(request) as ModelAndVersionResponse;
   }
 
   public async getAvailableZones(): Promise<AvailableZonesResponse> {
@@ -81,7 +86,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as AvailableZonesResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as AvailableZonesResponse;
+    //return await this.requestQueue(request) as AvailableZonesResponse;
   }
 
   public async getSerialNumber(): Promise<SerialNumberResponse> {
@@ -90,7 +96,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as SerialNumberResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as SerialNumberResponse;
+    //return await this.requestQueue(request) as SerialNumberResponse;
   }
 
   public async runProgram(program: number): Promise<AcknowledgedResponse | NotAcknowledgedResponse> {
@@ -99,7 +106,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 1,
     };
-    const response = await this.requestQueue(request);
+    const response = await this.queue.add(() => this.sendRequest(request));
+    //const response = await this.requestQueue(request);
     return response!.type === 0
       ? response as NotAcknowledgedResponse
       : response as AcknowledgedResponse;
@@ -111,7 +119,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 1,
     };
-    const response = await this.requestQueue(request);
+    const response = await this.queue.add(() => this.sendRequest(request));
+    //const response = await this.requestQueue(request);
     return response!.type === 0
       ? response as NotAcknowledgedResponse
       : response as AcknowledgedResponse;
@@ -123,7 +132,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 1,
     };
-    const response = await this.requestQueue(request);
+    const response = await this.queue.add(() => this.sendRequest(request));
+    //const response = await this.requestQueue(request);
     return response!.type === 0
       ? response as NotAcknowledgedResponse
       : response as AcknowledgedResponse;
@@ -135,7 +145,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 1,
     };
-    const response = await this.requestQueue(request);
+    const response = await this.queue.add(() => this.sendRequest(request));
+    //const response = await this.requestQueue(request);
     return response!.type === 0
       ? response as NotAcknowledgedResponse
       : response as AcknowledgedResponse;
@@ -147,7 +158,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as ControllerStateResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as ControllerStateResponse;
+    //return await this.requestQueue(request) as ControllerStateResponse;
   }
 
   public async getControllerDate(): Promise<ControllerDateGetResponse> {
@@ -156,7 +168,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as ControllerDateGetResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as ControllerDateGetResponse;
+    //return await this.requestQueue(request) as ControllerDateGetResponse;
   }
 
   public async setControllerDate(day: number, month: number, year: number): Promise<AcknowledgedResponse> {
@@ -165,7 +178,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as AcknowledgedResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as AcknowledgedResponse;
+    //return await this.requestQueue(request) as AcknowledgedResponse;
   }
 
   public async getControllerTime(): Promise<ControllerTimeGetResponse> {
@@ -174,7 +188,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as ControllerTimeGetResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as ControllerTimeGetResponse;
+    //return await this.requestQueue(request) as ControllerTimeGetResponse;
   }
 
   public async setControllerTime(hour: number, minute: number, second: number): Promise<AcknowledgedResponse> {
@@ -183,7 +198,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as AcknowledgedResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as AcknowledgedResponse;
+    //return await this.requestQueue(request) as AcknowledgedResponse;
   }
 
   public async getIrrigationState(): Promise<IrrigationStateResponse> {
@@ -192,7 +208,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: true,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as IrrigationStateResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as IrrigationStateResponse;
+    //return await this.requestQueue(request) as IrrigationStateResponse;
   }
 
   public async getRainSensorState(): Promise<RainSensorStateResponse> {
@@ -201,7 +218,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as RainSensorStateResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as RainSensorStateResponse;
+    //return await this.requestQueue(request) as RainSensorStateResponse;
   }
 
   public async getCurrentZone(): Promise<CurrentZoneResponse> {
@@ -210,7 +228,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as CurrentZoneResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as CurrentZoneResponse;
+    //return await this.requestQueue(request) as CurrentZoneResponse;
   }
 
   public async getProgramZoneState(page = 0): Promise<ProgramZoneStateResponse> {
@@ -219,7 +238,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as ProgramZoneStateResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as ProgramZoneStateResponse;
+    //return await this.requestQueue(request) as ProgramZoneStateResponse;
   }
 
   public async getRaw(type: number, page = 0): Promise<RawResponse> {
@@ -228,7 +248,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as RawResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as RawResponse;
+    //return await this.requestQueue(request) as RawResponse;
   }
 
   public async getIrrigationDelay(): Promise<IrrigationDelayGetResponse> {
@@ -237,7 +258,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as IrrigationDelayGetResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as IrrigationDelayGetResponse;
+    //return await this.requestQueue(request) as IrrigationDelayGetResponse;
   }
 
   public async setIrrigstionDelay(days: number): Promise<AcknowledgedResponse> {
@@ -247,7 +269,8 @@ export class RainBirdClient extends events.EventEmitter {
       retry: false,
       postDelay: 0,
     };
-    return await this.requestQueue(request) as AcknowledgedResponse;
+    return await this.queue.add(() => this.sendRequest(request)) as AcknowledgedResponse;
+    //return await this.requestQueue(request) as AcknowledgedResponse;
   }
 
   private async sendRequest(request: RainBirdRequest): Promise<Response | undefined> {
