@@ -3,8 +3,10 @@ import Queue from 'queue';
 import { LogLevel } from './LogLevel';
 import { EventType } from './EventType';
 import { RainBirdClient } from './RainBirdClient.js';
-import { debounceTime, fromEvent, Subject, Subscription, timer } from 'rxjs';
+import { debounceTime, fromEvent, Subject, timer } from 'rxjs';
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js';
+
+import type { Subscription } from 'rxjs';
 
 type RainBirdMetaData = {
   modelNumber: number,
@@ -12,7 +14,7 @@ type RainBirdMetaData = {
   version: string,
   serialNumber: string,
   zones: number[]
-}
+};
 
 type ZoneStatus = {
   active: boolean,
@@ -20,20 +22,20 @@ type ZoneStatus = {
   running: boolean,
   remainingDuration: number,
   durationTime?: Date
-}
+};
 
 type ProgramZoneState = {
   id: number,
   timeRemaining?: number,
   running: boolean
-}
+};
 
 type RainBirdState = {
   program?: ProgramZoneState,
   zones: ProgramZoneState[],
   runningZoneIndex?: number;
   rainSensorSetPointReached: boolean
-}
+};
 
 export class RainBirdService extends events.EventEmitter {
   private readonly _client: RainBirdClient;
@@ -310,7 +312,7 @@ export class RainBirdService extends events.EventEmitter {
         this._zones[zone].durationTime = new Date();
       }
 
-    } catch(error) {
+    } catch (error) {
       this.emit(EventType.LOG, LogLevel.WARN, `Zone ${zone}: Failed to start [${error}]`);
     } finally {
       this._statusRefreshSubject.next();
@@ -437,7 +439,7 @@ export class RainBirdService extends events.EventEmitter {
     if (this._rainSetPointReached !== status.rainSensorSetPointReached) {
       this._rainSetPointReached = status.rainSensorSetPointReached;
       this.emit(EventType.RAIN_SENSOR_STATE);
-      this.emit(EventType.LOG, LogLevel.INFO, `Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached': 'Clear'}`);
+      this.emit(EventType.LOG, LogLevel.INFO, `Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached' : 'Clear'}`);
     }
   }
 

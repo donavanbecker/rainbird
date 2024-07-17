@@ -3,12 +3,10 @@ import crypto from 'crypto';
 import encoder from 'text-encoder';
 import aesjs from 'aes-js';
 import cq from 'concurrent-queue';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 import { LogLevel } from './LogLevel';
 import { EventType } from './EventType';
-import { Request } from './requests/Request.js';
-import { Response } from './responses/Response.js';
 import { ModelAndVersionRequest } from './requests/ModelAndVersionRequest.js';
 import { ModelAndVersionResponse } from './responses/ModelAndVersionResponse.js';
 import { AvailableZonesResponse } from './responses/AvailableZonesResponse.js';
@@ -43,11 +41,15 @@ import { IrrigationDelaySetRequest } from './requests/IrrigationDelaySetRequest.
 import { IrrigationDelayGetRequest } from './requests/IrrigationDelayGetRequest.js';
 import { IrrigationDelayGetResponse } from './responses/IrrigationDelayGetResponse.js';
 
+import type { AxiosRequestConfig } from 'axios';
+import type { Request } from './requests/Request.js';
+import type { Response } from './responses/Response.js';
+
 type RainBirdRequest = {
   type: Request,
   retry: boolean,
   postDelay: number
-}
+};
 
 export class RainBirdClient extends events.EventEmitter {
   private readonly RETRY_DELAY = 60;
@@ -253,7 +255,7 @@ export class RainBirdClient extends events.EventEmitter {
       this.emit(EventType.LOG, LogLevel.WARN, `[${this.address}] Request:  ${request.type}`);
     }
 
-    // eslint-disable-next-line no-constant-condition
+
     while (true) {
       try {
         const url = `http://${this.address}/stick`;
