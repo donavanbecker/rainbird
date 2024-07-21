@@ -3,3 +3,5 @@
  * index.ts: rainbird API registration.
  */
 export * from './RainBird/RainBirdService.js';
+export * from './RainBird/EventType.js';
+export * from './RainBird/LogLevel.js';
