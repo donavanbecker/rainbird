@@ -1,22 +1,24 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class ProgramZoneStateResponse extends Response {
-  private readonly _page: number;
+  private readonly _page: number
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._page = response[1];
+    super()
+    this._page = response[1]
   }
 
   get type(): number {
-    return 0xBB;
+    return 0xBB
   }
 
   get page(): number {
-    return this._page;
+    return this._page
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

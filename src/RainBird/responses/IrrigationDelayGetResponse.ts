@@ -1,22 +1,24 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class IrrigationDelayGetResponse extends Response {
-  private readonly _days: number;
+  private readonly _days: number
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._days = response.readUInt16BE(1);
+    super()
+    this._days = response.readUInt16BE(1)
   }
 
   get type(): number {
-    return 0xB6;
+    return 0xB6
   }
 
   get days(): number {
-    return this._days;
+    return this._days
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

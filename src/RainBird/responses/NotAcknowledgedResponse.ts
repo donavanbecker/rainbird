@@ -1,28 +1,30 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class NotAcknowledgedResponse extends Response {
-  private readonly _commandType: number;
-  private readonly _code: number;
+  private readonly _commandType: number
+  private readonly _code: number
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._commandType = response[1];
-    this._code = response[2];
+    super()
+    this._commandType = response[1]
+    this._code = response[2]
   }
 
   get type(): number {
-    return 0x01;
+    return 0x01
   }
 
   get commandType(): number {
-    return this._commandType;
+    return this._commandType
   }
 
   get code(): number {
-    return this._code;
+    return this._code
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

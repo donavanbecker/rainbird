@@ -1,22 +1,24 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class IrrigationStateResponse extends Response {
-  private readonly _irrigationState: boolean;
+  private readonly _irrigationState: boolean
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._irrigationState = response[1] !== 0;
+    super()
+    this._irrigationState = response[1] !== 0
   }
 
   get type(): number {
-    return 0xC8;
+    return 0xC8
   }
 
   get irrigationState(): boolean {
-    return this._irrigationState;
+    return this._irrigationState
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

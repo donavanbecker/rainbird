@@ -1,22 +1,24 @@
-import { Request } from './Request.js';
+import { Buffer } from 'node:buffer'
+
+import { Request } from './Request.js'
 
 export class ProgramZoneStateRequest extends Request {
-  private _page: number;
+  private _page: number
 
   constructor(page: number) {
-    super();
-    this._page = page;
+    super()
+    this._page = page
   }
 
   get type(): number {
-    return 0x3B;
+    return 0x3B
   }
 
   get page(): number {
-    return this._page;
+    return this._page
   }
 
   toBuffer(): Buffer {
-    return Buffer.from([this.type, this.page]);
+    return Buffer.from([this.type, this.page])
   }
 }

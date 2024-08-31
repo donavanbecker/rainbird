@@ -1,35 +1,37 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class ControllerTimeGetResponse extends Response {
-  private readonly _hour: number;
-  private readonly _minute: number;
-  private readonly _second: number;
+  private readonly _hour: number
+  private readonly _minute: number
+  private readonly _second: number
 
   constructor(private readonly response: Buffer) {
-    super();
+    super()
 
-    this._hour = response[1];
-    this._minute = response[2];
-    this._second = response[3];
+    this._hour = response[1]
+    this._minute = response[2]
+    this._second = response[3]
   }
 
   get type(): number {
-    return 0x90;
+    return 0x90
   }
 
   get hour(): number {
-    return this._hour;
+    return this._hour
   }
 
   get minute(): number {
-    return this._minute;
+    return this._minute
   }
 
   get second(): number {
-    return this._second;
+    return this._second
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

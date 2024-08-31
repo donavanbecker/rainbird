@@ -1,22 +1,24 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class RainSensorStateResponse extends Response {
-  private readonly _setPointReached: boolean;
+  private readonly _setPointReached: boolean
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._setPointReached = response[1] !== 0;
+    super()
+    this._setPointReached = response[1] !== 0
   }
 
   get type(): number {
-    return 0xBE;
+    return 0xBE
   }
 
   get setPointReached(): boolean {
-    return this._setPointReached;
+    return this._setPointReached
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }
