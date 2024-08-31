@@ -2,14 +2,15 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
-## [1.0.2](https://github.com/donavanbecker/rainbird/tag/v1.0.2) (2024-7-16)
+## [1.1.0](https://github.com/donavanbecker/rainbird/tag/v1.1.0) (2024-08-31)
 
 ### What's Changed
+- Replace `queue` & `concurrent-queue` with `p-queue
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.0.1...v1.0.2
+**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.0.1...v1.1.0
 
-## [1.0.1](https://github.com/donavanbecker/rainbird/tag/v1.0.1) (2024-5-26)
+## [1.0.1](https://github.com/donavanbecker/rainbird/tag/v1.0.1) (2024-05-26)
 
 ### What's Changed
 - Use events for logging, Thanks [@mantorok1](https://github.com/mantorok1)

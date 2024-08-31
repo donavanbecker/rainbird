@@ -1,8 +1,10 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class ModelAndVersionResponse extends Response {
-  private readonly _modelNumber: number;
-  private readonly _version: string;
+  private readonly _modelNumber: number
+  private readonly _version: string
 
   private readonly _models: Map<number, string> = new Map([
     [0x0003, 'ESP-RZXe'],
@@ -18,31 +20,31 @@ export class ModelAndVersionResponse extends Response {
     [0x0107, 'ESP-Me'],
     [0x010A, 'ESP-TM2'],
     [0x0812, 'ARC8'],
-  ]);
+  ])
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._modelNumber = response.readUInt16BE(1);
-    this._version = `${response[3]}.${response[4]}`;
+    super()
+    this._modelNumber = response.readUInt16BE(1)
+    this._version = `${response[3]}.${response[4]}`
   }
 
   get type(): number {
-    return 0x82;
+    return 0x82
   }
 
   get modelNumber(): number {
-    return this._modelNumber;
+    return this._modelNumber
   }
 
   get modelName(): string {
-    return this._models.get(this._modelNumber) ?? this._modelNumber.toString();
+    return this._models.get(this._modelNumber) ?? this._modelNumber.toString()
   }
 
   get version(): string {
-    return this._version;
+    return this._version
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

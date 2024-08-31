@@ -1,20 +1,21 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class RawResponse extends Response {
-
   constructor(private readonly response: Buffer) {
-    super();
+    super()
   }
 
   get type(): number {
-    return this.response[0];
+    return this.response[0]
   }
 
   get page(): number {
-    return this.response[1];
+    return this.response[1]
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

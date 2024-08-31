@@ -1,22 +1,24 @@
-import { Response } from './Response.js';
+import type { Buffer } from 'node:buffer'
+
+import { Response } from './Response.js'
 
 export class SerialNumberResponse extends Response {
-  private readonly _serialNumber: string;
+  private readonly _serialNumber: string
 
   constructor(private readonly response: Buffer) {
-    super();
-    this._serialNumber = response.subarray(1, 8).toString('hex');
+    super()
+    this._serialNumber = response.subarray(1, 8).toString('hex')
   }
 
   get type(): number {
-    return 0x85;
+    return 0x85
   }
 
   get serialNumber(): string {
-    return this._serialNumber;
+    return this._serialNumber
   }
 
   toBuffer(): Buffer {
-    return this.response;
+    return this.response
   }
 }

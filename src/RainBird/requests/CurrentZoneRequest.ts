@@ -1,15 +1,17 @@
-import { Request } from './Request.js';
+import { Buffer } from 'node:buffer'
+
+import { Request } from './Request.js'
 
 export class CurrentZoneRequest extends Request {
   get type(): number {
-    return 0x3F;
+    return 0x3F
   }
 
   get page(): number {
-    return 0x00;
+    return 0x00
   }
 
   toBuffer(): Buffer {
-    return Buffer.from([this.type, this.page]);
+    return Buffer.from([this.type, this.page])
   }
 }
