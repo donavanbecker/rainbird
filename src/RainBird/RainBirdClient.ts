@@ -12,8 +12,6 @@ import axios from 'axios'
 import PQueue from 'p-queue'
 import encoder from 'text-encoder'
 
-import { EventType } from './EventType.js'
-import { LogLevel } from './LogLevel.js'
 import { AdvanceZoneRequest } from './requests/AdvanceZoneRequest.js'
 import { AvailableZonesRequest } from './requests/AvailableZonesRequest.js'
 import { ControllerDateGetRequest } from './requests/ControllerDateGetRequest.js'
@@ -71,6 +69,15 @@ export class RainBirdClient extends events.EventEmitter {
     private readonly showRequestResponse: boolean,
   ) {
     super()
+  }
+
+  /**
+   * Emit a log event.
+   * @param level The log level.
+   * @param message The log message.
+   */
+  public emitLog(level: string, message: string): void {
+    this.emit('log', { level, message })
   }
 
   public async getModelAndVersion(): Promise<ModelAndVersionResponse> {
@@ -278,7 +285,7 @@ export class RainBirdClient extends events.EventEmitter {
 
   private async sendRequest(request: RainBirdRequest): Promise<Response | undefined> {
     if (this.showRequestResponse) {
-      this.emit(EventType.LOG, LogLevel.WARN, `[${this.address}] Request:  ${request.type}`)
+      this.emitLog('warn', `[${this.address}] Request:  ${request.type}`)
     }
 
     while (true) {
@@ -298,12 +305,12 @@ export class RainBirdClient extends events.EventEmitter {
 
         return response
       } catch (error) {
-        this.emit(EventType.LOG, LogLevel.WARN, `RainBird controller request failed. [${error}]`)
-        this.emit(EventType.LOG, LogLevel.WARN, `Failed Request: ${request.type}`)
+        this.emitLog('error', `RainBird controller request failed. [${error}]`)
+        this.emitLog('error', `Failed Request: ${request.type}`)
         if (!request.retry) {
           break
         }
-        this.emit(EventType.LOG, LogLevel.WARN, `Will retry in ${this.RETRY_DELAY} seconds`)
+        this.emitLog('warn', `Will retry in ${this.RETRY_DELAY} seconds`)
         await this.delay(this.RETRY_DELAY)
       }
     }
@@ -314,15 +321,15 @@ export class RainBirdClient extends events.EventEmitter {
     const decryptedResponse = JSON.parse(this.decrypt(encryptedResponse).replace(/[\x10\n\0]/g, ''))
 
     if (!decryptedResponse) {
-      this.emit(EventType.LOG, LogLevel.ERROR, 'No response received')
+      this.emitLog('error', 'No response received')
       return
     }
     if (decryptedResponse.error) {
-      this.emit(EventType.LOG, LogLevel.ERROR, `Received error from Rainbird controller ${decryptedResponse.error.code}: ${decryptedResponse.error.message}`)
+      this.emitLog('error', `Received error from Rainbird controller ${decryptedResponse.error.code}: ${decryptedResponse.error.message}`)
       return
     }
     if (!decryptedResponse.result) {
-      this.emit(EventType.LOG, LogLevel.ERROR, 'Invalid response received')
+      this.emitLog('error', 'Invalid response received')
       return
     }
     const data = Buffer.from(decryptedResponse.result.data, 'hex')
@@ -373,7 +380,7 @@ export class RainBirdClient extends events.EventEmitter {
     }
 
     if (this.showRequestResponse) {
-      this.emit(EventType.LOG, LogLevel.WARN, `[${this.address}] Response: ${response ?? 'Unknown'}`)
+      this.emitLog('warn', `[${this.address}] Response: ${response ?? 'Unknown'}`)
     }
 
     return response

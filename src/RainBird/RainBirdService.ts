@@ -1,5 +1,7 @@
 import type { Subscription } from 'rxjs'
 
+import type { LogLevel } from './LogLevel.js'
+
 import { Buffer } from 'node:buffer'
 import * as events from 'node:events'
 
@@ -7,7 +9,6 @@ import PQueue from 'p-queue'
 import { debounceTime, fromEvent, Subject, timer } from 'rxjs'
 
 import { EventType } from './EventType.js'
-import { LogLevel } from './LogLevel.js'
 import { RainBirdClient } from './RainBirdClient.js'
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js'
 
@@ -87,7 +88,7 @@ export class RainBirdService extends events.EventEmitter {
 
     this._client = new RainBirdClient(options.address, options.password, options.showRequestResponse)
     this._client.on(EventType.LOG, (level: LogLevel, message: string) => {
-      this.emit(EventType.LOG, level, message)
+      this.emitLog(level, message)
     })
 
     this._statusRefreshSubject
@@ -96,8 +97,17 @@ export class RainBirdService extends events.EventEmitter {
       ).subscribe(async () => await this.performStatusRefresh())
   }
 
+  /**
+   * Emit a log event.
+   * @param level The log level.
+   * @param message The log message.
+   */
+  public emitLog(level: string, message: string): void {
+    this.emit('log', { level, message })
+  }
+
   async init(): Promise<RainBirdMetaData> {
-    this.emit(EventType.LOG, LogLevel.DEBUG, 'Init')
+    this.emitLog('debug', 'Init')
 
     const respModelAndVersion = await this._client.getModelAndVersion()
     const respSerialNumber = await this._client.getSerialNumber()
@@ -124,7 +134,7 @@ export class RainBirdService extends events.EventEmitter {
 
     const irrigationState = (await this._client.getIrrigationState()).irrigationState
     if (!irrigationState) {
-      this.emit(EventType.LOG, LogLevel.WARN, 'RainBird controller is currently OFF. Please turn ON so plugin can control it')
+      this.emitLog('warn', 'RainBird controller is currently OFF. Please turn ON so plugin can control it')
     }
 
     // Sync time
@@ -199,7 +209,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   activateZone(zone: number, duration: number): void {
-    this.emit(EventType.LOG, LogLevel.DEBUG, `Zone ${zone}: Activate for ${duration} seconds`)
+    this.emitLog('debug', `Zone ${zone}: Activate for ${duration} seconds`)
 
     this._zones[zone].queued = true
     this._zones[zone].remainingDuration = duration
@@ -207,7 +217,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   async deactivateZone(zone: number): Promise<void> {
-    this.emit(EventType.LOG, LogLevel.DEBUG, `Zone ${zone}: Deactivate`)
+    this.emitLog('debug', `Zone ${zone}: Deactivate`)
 
     this._zones[zone].active = false
     this._zones[zone].queued = false
@@ -236,7 +246,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   async startProgram(programId: string): Promise<void> {
-    this.emit(EventType.LOG, LogLevel.INFO, `Program ${programId}: Start`)
+    this.emitLog('info', `Program ${programId}: Start`)
 
     const programNumber = this.getProgramNumber(programId)
     await this._client.runProgram(programNumber)
@@ -262,21 +272,21 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   async stopIrrigation(): Promise<void> {
-    this.emit(EventType.LOG, LogLevel.INFO, 'Stop Irrigation')
+    this.emitLog('info', 'Stop Irrigation')
 
     await this._client.stopIrrigation()
     await this.updateStatus()
   }
 
   private async startZone(zone: number, duration: number): Promise<void> {
-    this.emit(EventType.LOG, LogLevel.DEBUG, `Zone ${zone}: Start for ${duration} seconds`)
+    this.emitLog('debug', `Zone ${zone}: Start for ${duration} seconds`)
 
     try {
       this._statusTimerSubscription?.unsubscribe()
       await this.updateStatus()
 
       if (!this.isActive(zone)) {
-        this.emit(EventType.LOG, LogLevel.INFO, `Zone ${zone}: Skipped as it is not active`)
+        this.emitLog('info', `Zone ${zone}: Skipped as it is not active`)
         return
       }
 
@@ -297,16 +307,16 @@ export class RainBirdService extends events.EventEmitter {
       }
 
       if (!this.isActive(zone)) {
-        this.emit(EventType.LOG, LogLevel.INFO, `Zone ${zone}: Skipped as it is not active`)
+        this.emitLog('info', `Zone ${zone}: Skipped as it is not active`)
         return
       }
 
       if (this.isInUse(zone)) {
-        this.emit(EventType.LOG, LogLevel.INFO, `Zone ${zone}: Skipped as it is already in use`)
+        this.emitLog('info', `Zone ${zone}: Skipped as it is already in use`)
         return
       }
 
-      this.emit(EventType.LOG, LogLevel.INFO, `Zone ${zone}: Start [Duration: ${this.formatTime(duration)}]`)
+      this.emitLog('info', `Zone ${zone}: Start [Duration: ${this.formatTime(duration)}]`)
 
       await this._client.runZone(zone, duration)
       this._zones[zone].queued = false
@@ -316,7 +326,7 @@ export class RainBirdService extends events.EventEmitter {
         this._zones[zone].durationTime = new Date()
       }
     } catch (error) {
-      this.emit(EventType.LOG, LogLevel.WARN, `Zone ${zone}: Failed to start [${error}]`)
+      this.emitLog('warn', `Zone ${zone}: Failed to start [${error}]`)
     } finally {
       this._statusRefreshSubject.next()
     }
@@ -336,7 +346,7 @@ export class RainBirdService extends events.EventEmitter {
     }
 
     if (timerDuration > 0) {
-      this.emit(EventType.LOG, LogLevel.DEBUG, `Status timer set for ${timerDuration} secs`)
+      this.emitLog('debug', `Status timer set for ${timerDuration} secs`)
       this._statusTimerSubscription = timer(timerDuration * 1000)
         .subscribe(async () => await this.performStatusRefresh())
     }
@@ -349,7 +359,7 @@ export class RainBirdService extends events.EventEmitter {
 
       this.setStatusTimer()
     } catch (error) {
-      this.emit(EventType.LOG, LogLevel.DEBUG, `Failed to get status: ${error}`)
+      this.emitLog('debug', `Failed to get status: ${error}`)
     }
   }
 
@@ -374,7 +384,7 @@ export class RainBirdService extends events.EventEmitter {
       return
     }
 
-    this.emit(EventType.LOG, LogLevel.INFO, `Adjusting Rainbird Controller Date/Time from ${controller.toLocaleString()} to ${host.toLocaleString()}`)
+    this.emitLog('info', `Adjusting Rainbird Controller Date/Time from ${controller.toLocaleString()} to ${host.toLocaleString()}`)
 
     await this._client.setControllerDate(host.getDate(), host.getMonth() + 1, host.getFullYear())
     await this._client.setControllerTime(host.getHours(), host.getMinutes(), host.getSeconds())
@@ -386,7 +396,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   public async setIrrigationDelay(days: number): Promise<void> {
-    this.emit(EventType.LOG, LogLevel.INFO, `Set Irrigation Delay: ${days} days`)
+    this.emitLog('info', `Set Irrigation Delay: ${days} days`)
     await this._client.setIrrigstionDelay(days)
   }
 
@@ -398,21 +408,21 @@ export class RainBirdService extends events.EventEmitter {
     const previousZoneId = this._currentZoneId
     this._currentZoneId = currentZone?.id ?? 0
     if (previousZoneId !== 0 && this._zones[previousZoneId].running && previousZoneId !== currentZone?.id) {
-      this.emit(EventType.LOG, LogLevel.INFO, `Zone ${previousZoneId}: Complete`)
+      this.emitLog('info', `Zone ${previousZoneId}: Complete`)
     }
 
     const previousProgramId = this._currentProgramId
     this._currentProgramId = status.program !== undefined ? this.getProgramId(status.program.id) : undefined
     if (previousProgramId !== undefined && previousProgramId !== '' && previousProgramId !== this._currentProgramId) {
-      this.emit(EventType.LOG, LogLevel.INFO, `Program ${previousProgramId}: Complete`)
+      this.emitLog('info', `Program ${previousProgramId}: Complete`)
     }
 
     if (this._currentProgramId !== undefined && this._currentProgramId !== '' && previousProgramId !== this._currentProgramId) {
-      this.emit(EventType.LOG, LogLevel.INFO, `Program ${this._currentProgramId}: Running [Time Remaining: ${this.formatTime(status.program?.timeRemaining)}]`)
+      this.emitLog('info', `Program ${this._currentProgramId}: Running [Time Remaining: ${this.formatTime(status.program?.timeRemaining)}]`)
     }
 
     if (currentZone !== undefined && currentZone.running && previousZoneId !== currentZone.id) {
-      this.emit(EventType.LOG, LogLevel.INFO, `Zone ${currentZone.id}: Running [Time Remaining: ${this.formatTime(currentZone.timeRemaining)}]`)
+      this.emitLog('info', `Zone ${currentZone.id}: Running [Time Remaining: ${this.formatTime(currentZone.timeRemaining)}]`)
     }
 
     for (const [id, zone] of Object.entries(this._zones)) {
@@ -438,7 +448,7 @@ export class RainBirdService extends events.EventEmitter {
     if (this._rainSetPointReached !== status.rainSensorSetPointReached) {
       this._rainSetPointReached = status.rainSensorSetPointReached
       this.emit(EventType.RAIN_SENSOR_STATE)
-      this.emit(EventType.LOG, LogLevel.INFO, `Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached' : 'Clear'}`)
+      this.emitLog('info', `Rain Sensor: ${status.rainSensorSetPointReached ? 'SetPoint reached' : 'Clear'}`)
     }
   }
 
@@ -664,15 +674,15 @@ export class RainBirdService extends events.EventEmitter {
     const page1 = (await this._client.getProgramZoneState(1)).toBuffer()
     const page2 = (await this._client.getProgramZoneState(2)).toBuffer()
 
-    this.emit(EventType.LOG, LogLevel.WARN, 'This plugin does not fully support your RainBird model and may not not correctly show the zone\'s state such as time remaining')
-    this.emit(EventType.LOG, LogLevel.WARN, 'If you would like better support please create a GitHub issue [https://github.com/donavanbecker/rainbird/issues]')
-    this.emit(EventType.LOG, LogLevel.WARN, 'and supply the following details:')
-    this.emit(EventType.LOG, LogLevel.WARN, `  Model: ${this.model}, Zones: ${[...this.zones.keys()]}`)
-    this.emit(EventType.LOG, LogLevel.WARN, `  ProgramZoneState Page 0: ${[...page0.values()]}`)
-    this.emit(EventType.LOG, LogLevel.WARN, `  ProgramZoneState Page 1: ${[...page1.values()]}`)
-    this.emit(EventType.LOG, LogLevel.WARN, `  ProgramZoneState Page 2: ${[...page2.values()]}`)
-    this.emit(EventType.LOG, LogLevel.WARN, 'Also include your model (if different to the one above), which program is running and')
-    this.emit(EventType.LOG, LogLevel.WARN, 'the time remaining for the currently running zone as well as for the other idle/waiting zones')
+    this.emitLog('warn', 'This plugin does not fully support your RainBird model and may not not correctly show the zone\'s state such as time remaining')
+    this.emitLog('warn', 'If you would like better support please create a GitHub issue [https://github.com/donavanbecker/rainbird/issues]')
+    this.emitLog('warn', 'and supply the following details:')
+    this.emitLog('warn', `  Model: ${this.model}, Zones: ${[...this.zones.keys()]}`)
+    this.emitLog('warn', `  ProgramZoneState Page 0: ${[...page0.values()]}`)
+    this.emitLog('warn', `  ProgramZoneState Page 1: ${[...page1.values()]}`)
+    this.emitLog('warn', `  ProgramZoneState Page 2: ${[...page2.values()]}`)
+    this.emitLog('warn', 'Also include your model (if different to the one above), which program is running and')
+    this.emitLog('warn', 'the time remaining for the currently running zone as well as for the other idle/waiting zones')
   }
 
   refreshStatus(): void {
