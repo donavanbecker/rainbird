@@ -11,8 +11,8 @@
 <a href="https://paypal.me/donavanbecker"><img title="donavanbecker" src="https://badgen.net/badge/donavanbecker/paypal/yellow" ></a>
 <a href="https://paypal.me/Mantorok1"><img title="mantorok1" src="https://badgen.net/badge/mantorok1/paypal/yellow" ></a>
 
-<p>The <a href="https://rainbird.com">RainBird</a> 
-library allows you to access your RainBird Controller</a>. 
+<p>The <a href="https://rainbird.com">RainBird</a>
+library allows you to access your RainBird Controller</a>.
 </p>
 
 </span>
@@ -20,28 +20,31 @@ library allows you to access your RainBird Controller</a>.
 ## Installation
 
 To use this library in Node, install it from the command line:
+
 ```
 npm -save install rainbird
 ```
 
 ## Usage
 
-See the [API Guide](./docs/api_guide.md) for details.
+See the [API Guide](./docs/index.html) for details.
 
 ## Collaborators
 
- - Main developer of the RaindBird API:
-      - [mantorok1](https://github.com/mantorok1)
+- Main developer of the RaindBird API:
+  - [mantorok1](https://github.com/mantorok1)
 
 ## Compatiable Controllers
 
 Any controller that supports the [RainBird LNK WiFi Module](https://www.rainbird.com/products/lnk-wifi-module) should be compatible. This includes:
+
 - ESP-Me
 - ESP-TM2
 - ESP-RZXe
 - ESP-ME3
 
 ## Known Limitations
+
 - Using the RainBird app while the plugin is running can cause connectivity issues.
 - The RainBird LNK WiFi Module may not support "Band Steering" and WiFi Channel 13. Try not using these on your router if you are having connectivity issues.
 - Some models do not yet have support for displaying the time remaining. If its not working for your model please log a GitHub issue and we will try to add it with your help.

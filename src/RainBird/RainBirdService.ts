@@ -94,7 +94,8 @@ export class RainBirdService extends events.EventEmitter {
     this._statusRefreshSubject
       .pipe(
         debounceTime(1000),
-      ).subscribe(async () => await this.performStatusRefresh())
+      )
+      .subscribe(async () => await this.performStatusRefresh())
   }
 
   /**
