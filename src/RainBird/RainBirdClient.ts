@@ -77,7 +77,9 @@ export class RainBirdClient extends events.EventEmitter {
    * @param message The log message.
    */
   public emitLog(level: string, message: string): void {
-    this.emit('log', { level, message })
+    if (message !== undefined) {
+      this.emit('log', { level, message })
+    }
   }
 
   public async getModelAndVersion(): Promise<ModelAndVersionResponse> {

@@ -88,7 +88,9 @@ export class RainBirdService extends events.EventEmitter {
 
     this._client = new RainBirdClient(options.address, options.password, options.showRequestResponse)
     this._client.on(EventType.LOG, (level: LogLevel, message: string) => {
-      this.emitLog(level, message)
+      if (message !== undefined) {
+        this.emitLog(level, message)
+      }
     })
 
     this._statusRefreshSubject
