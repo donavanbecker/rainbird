@@ -393,14 +393,27 @@ export class RainBirdService extends events.EventEmitter {
     await this._client.setControllerTime(host.getHours(), host.getMinutes(), host.getSeconds())
   }
 
-  public async getIrrigatinDelay(): Promise<number> {
-    const response = await this._client.getIrrigationDelay()
-    return response.days
+  public async getIrrigationDelay(): Promise<number> {
+    try {
+      const response = await this._client.getIrrigationDelay()
+      if (!response || typeof response.days !== 'number') {
+        this.emitLog('warn', 'Failed to get irrigation delay: Invalid response')
+        return 0 // Return a default value or handle it as needed
+      }
+      return response.days
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get irrigation delay: ${e.message ?? e}`)
+      return 0 // Return a default value or handle it as needed
+    }
   }
 
   public async setIrrigationDelay(days: number): Promise<void> {
-    this.emitLog('info', `Set Irrigation Delay: ${days} days`)
-    await this._client.setIrrigstionDelay(days)
+    try {
+      this.emitLog('info', `Set Irrigation Delay: ${days} days`)
+      await this._client.setIrrigstionDelay(days)
+    } catch (e: any) {
+      this.emitLog('error', `Failed to set irrigation delay: ${e.message ?? e}`)
+    }
   }
 
   private async updateStatus(): Promise<void> {
