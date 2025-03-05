@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
-## [1.2.2](https://github.com/donavanbecker/rainbird/tag/v1.2.1) (2025-01-25)
+## [1.2.3](https://github.com/donavanbecker/rainbird/tag/v1.2.3) (2025-03-04)
+
+# *No New Releases During Lent*
+
+### What's Changed
+- Housekeeping and updated dependencies.
+
+**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.2.2...v1.2.3
+
+## [1.2.2](https://github.com/donavanbecker/rainbird/tag/v1.2.2) (2025-01-25)
 
 ### What's Changed
 - Housekeeping and updated dependencies.

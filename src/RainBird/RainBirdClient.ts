@@ -59,7 +59,7 @@ export class RainBirdClient extends events.EventEmitter {
     .limit({ concurrency: 1 })
     .process(this.sendRequest.bind(this)); */
 
-  queue = new PQueue({
+  queue: PQueue = new PQueue({
     concurrency: 1,
   })
 
