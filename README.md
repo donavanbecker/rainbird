@@ -27,7 +27,7 @@ npm -save install rainbird
 
 ## Usage
 
-See the [API Guide](./docs/index.html) for details.
+See the [API Guide](./docs/api_guide.md) for details.
 
 ## Collaborators
 
