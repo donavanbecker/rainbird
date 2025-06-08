@@ -8,6 +8,6 @@ on:
 
 jobs:
     changerelease:
-        uses: donavanbecker/.github/.github/workflows/changerelease.yml@latest
+        uses: homebridge/.github/.github/workflows/changerelease.yml@latest
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}

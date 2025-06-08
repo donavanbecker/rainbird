@@ -2,69 +2,76 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
-## [1.2.3](https://github.com/donavanbecker/rainbird/tag/v1.2.3) (2025-03-04)
+## [1.2.4](https://github.com/homebridge-plugins/rainbird/tag/v1.2.4) (2025-06-10)
+
+### What's Changed
+- Issue 23: Fix request/response logging & improve documentation @mantorok1 [#24]
+
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.3...v1.2.4
+
+## [1.2.3](https://github.com/homebridge-plugins/rainbird/tag/v1.2.3) (2025-03-04)
 
 # *No New Releases During Lent*
 
 ### What's Changed
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.2.2...v1.2.3
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.2...v1.2.3
 
-## [1.2.2](https://github.com/donavanbecker/rainbird/tag/v1.2.2) (2025-01-25)
-
-### What's Changed
-- Housekeeping and updated dependencies.
-
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.2.1...v1.2.2
-
-## [1.2.1](https://github.com/donavanbecker/rainbird/tag/v1.2.1) (2025-01-16)
+## [1.2.2](https://github.com/homebridge-plugins/rainbird/tag/v1.2.2) (2025-01-25)
 
 ### What's Changed
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.2.0...v1.2.1
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.1...v1.2.2
 
-## [1.2.0](https://github.com/donavanbecker/rainbird/tag/v1.2.0) (2024-11-03)
+## [1.2.1](https://github.com/homebridge-plugins/rainbird/tag/v1.2.1) (2025-01-16)
+
+### What's Changed
+- Housekeeping and updated dependencies.
+
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.0...v1.2.1
+
+## [1.2.0](https://github.com/homebridge-plugins/rainbird/tag/v1.2.0) (2024-11-03)
 
 ### What's Changed
 - Emit logs intead of using logLevel
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.1.0...v1.2.0
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.1.0...v1.2.0
 
-## [1.1.0](https://github.com/donavanbecker/rainbird/tag/v1.1.0) (2024-08-31)
+## [1.1.0](https://github.com/homebridge-plugins/rainbird/tag/v1.1.0) (2024-08-31)
 
 ### What's Changed
 - Replace `queue` & `concurrent-queue` with `p-queue`
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.0.1...v1.1.0
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.0.1...v1.1.0
 
-## [1.0.1](https://github.com/donavanbecker/rainbird/tag/v1.0.1) (2024-05-26)
+## [1.0.1](https://github.com/homebridge-plugins/rainbird/tag/v1.0.1) (2024-05-26)
 
 ### What's Changed
 - Use events for logging, Thanks [@mantorok1](https://github.com/mantorok1)
 - Document API, Thanks [@mantorok1](https://github.com/mantorok1)
 - Housekeeping and updated dependencies.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v1.0.0...v1.0.1
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.0.0...v1.0.1
 
-## [1.0.0](https://github.com/donavanbecker/rainbird/tag/v1.0.0) (2024-01-31)
+## [1.0.0](https://github.com/homebridge-plugins/rainbird/tag/v1.0.0) (2024-01-31)
 
 ### What's Changed
 - Release of standalone RainBird module.
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v0.2.0...v1.0.0
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v0.2.0...v1.0.0
 
-## [0.2.0](https://github.com/donavanbecker/rainbird/tag/v0.2.0) (2024-01-22)
+## [0.2.0](https://github.com/homebridge-plugins/rainbird/tag/v0.2.0) (2024-01-22)
 
 ### What's Changed
 - Resolve ES Module imports
 
-**Full Changelog**: https://github.com/donavanbecker/rainbird/compare/v0.1.0...v0.2.0
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v0.1.0...v0.2.0
 
-## [0.1.0](https://github.com/donavanbecker/rainbird/tag/v0.1.0) (2024-01-21)
+## [0.1.0](https://github.com/homebridge-plugins/rainbird/tag/v0.1.0) (2024-01-21)
 
 ### What's Changed
 - Initial Release

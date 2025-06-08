@@ -687,7 +687,7 @@ export class RainBirdService extends events.EventEmitter {
     const page2 = (await this._client.getProgramZoneState(2)).toBuffer()
 
     this.emitLog('warn', 'This plugin does not fully support your RainBird model and may not not correctly show the zone\'s state such as time remaining')
-    this.emitLog('warn', 'If you would like better support please create a GitHub issue [https://github.com/donavanbecker/rainbird/issues]')
+    this.emitLog('warn', 'If you would like better support please create a GitHub issue [https://github.com/homebridge-plugins/rainbird/issues]')
     this.emitLog('warn', 'and supply the following details:')
     this.emitLog('warn', `  Model: ${this.model}, Zones: ${[...this.zones.keys()]}`)
     this.emitLog('warn', `  ProgramZoneState Page 0: ${[...page0.values()]}`)

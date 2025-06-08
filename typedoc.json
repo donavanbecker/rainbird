@@ -4,6 +4,7 @@
   ],
   "theme": "default-modern",
   "out": "docs",
+  "readme": "api/api_guide.md",
   "exclude": ["src/**/*.spec.ts"],
   "entryPoints": [
     "src/index.ts"

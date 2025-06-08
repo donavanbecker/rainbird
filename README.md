@@ -1,6 +1,6 @@
 <span align="center">
 
-<a href="https://github.com/donavanbecker/rainbird"><img alt="rainbird" src="https://raw.githubusercontent.com/donavanbecker/rainbird/latest/branding/Rainbird.svg?sanitize=true" width="500px"></a>
+<a href="https://github.com/homebridge-plugins/rainbird"><img alt="rainbird" src="https://raw.githubusercontent.com/homebridge-plugins/rainbird/latest/branding/Rainbird.svg?sanitize=true" width="500px"></a>
 
 # Rainbird
 
@@ -8,7 +8,7 @@
 <a href="https://www.npmjs.com/package/rainbird"><img title="npm downloads" src="https://badgen.net/npm/dt/rainbird?label=downloads" ></a>
 <a href="https://discord.gg/8fpZA4S"><img title="discord-rainbird" src="https://badgen.net/discord/online-members/8fpZA4S?icon=discord&label=discord" ></a>
 
-<a href="https://paypal.me/donavanbecker"><img title="donavanbecker" src="https://badgen.net/badge/donavanbecker/paypal/yellow" ></a>
+<a href="https://paypal.me/donavanbecker"><img title="donavanbecker" src="https://badgen.net/badge/homebridge-plugins/paypal/yellow" ></a>
 <a href="https://paypal.me/Mantorok1"><img title="mantorok1" src="https://badgen.net/badge/mantorok1/paypal/yellow" ></a>
 
 <p>The <a href="https://rainbird.com">RainBird</a>
