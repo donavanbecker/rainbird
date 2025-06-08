@@ -1,7 +1,5 @@
 import type { Subscription } from 'rxjs'
 
-import type { LogLevel } from './LogLevel.js'
-
 import { Buffer } from 'node:buffer'
 import * as events from 'node:events'
 
