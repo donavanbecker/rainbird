@@ -34,6 +34,13 @@ See the [API Guide](./docs/api_guide.md) for details.
 - Main developer of the RaindBird API:
   - [mantorok1](https://github.com/mantorok1)
 
+## Contributing
+
+We welcome contributions! Before submitting pull requests:
+- Ensure issues have appropriate version labels (`patch`/`minor`/`major`)
+- Target beta branches (see [COPILOT_INSTRUCTIONS.md](./COPILOT_INSTRUCTIONS.md))
+- Follow the existing code style and testing requirements
+
 ## Compatiable Controllers
 
 Any controller that supports the [RainBird LNK WiFi Module](https://www.rainbird.com/products/lnk-wifi-module) should be compatible. This includes:
