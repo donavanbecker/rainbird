@@ -36,3 +36,8 @@ latest:
 workflow:
 - changed-files:
   - any-glob-to-any-file: .github/**
+
+# Semantic versioning labels - these should be manually applied based on change impact
+# patch: Bug fixes and small improvements
+# minor: New features and enhancements  
+# major: Breaking changes
