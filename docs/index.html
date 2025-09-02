@@ -1,37 +1,202 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="."><head><style>body { visibility: hidden; }</style><meta charset="utf-8"><meta http-equiv="x-ua-compatible" content="IE=edge"><title>rainbird</title><meta name="description" content="Documentation for rainbird"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/highlight.css"><script defer="" src="assets/main.js"></script><script async="" src="assets/icons.js" id="tsd-icons-script"></script><link rel="stylesheet" href="assets/dmt/dmt-components.css"><link rel="stylesheet" href="assets/dmt/dmt-theme.css"><script src="assets/dmt/dmt-components.js" type="module"></script><noscript><style>body { visibility: visible; }</style></noscript></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";</script><div class="overlay"></div>
-<main><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field" id="dmt-search-main"></div><div class="field" id="dmt-toolbar"><a href="index.html" class="title">rainbird</a></div></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main" tabindex="-1"><div class="col-content"><div class="tsd-page-title"><div class="dmt-title-header-flex"><h1>rainbird</h1></div></div><div class="tsd-panel tsd-typography"><span align="center">
-<p><a href="https://github.com/homebridge-plugins/rainbird"><img alt="rainbird" src="https://raw.githubusercontent.com/homebridge-plugins/rainbird/latest/branding/Rainbird.svg?sanitize=true" width="500px"></a></p>
-<a id="rainbird" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Rainbird<a href="#rainbird" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><a href="https://www.npmjs.com/package/rainbird"><img title="npm version" src="https://badgen.net/npm/v/rainbird?icon=npm&amp;label"></a>
-<a href="https://www.npmjs.com/package/rainbird"><img title="npm downloads" src="https://badgen.net/npm/dt/rainbird?label=downloads"></a>
-<a href="https://discord.gg/8fpZA4S"><img title="discord-rainbird" src="https://badgen.net/discord/online-members/8fpZA4S?icon=discord&amp;label=discord"></a></p>
-<p><a href="https://paypal.me/donavanbecker"><img title="donavanbecker" src="https://badgen.net/badge/homebridge-plugins/paypal/yellow"></a>
-<a href="https://paypal.me/Mantorok1"><img title="mantorok1" src="https://badgen.net/badge/mantorok1/paypal/yellow"></a></p>
-<p>The <a href="https://rainbird.com">RainBird</a>
-library allows you to access your RainBird Controller.
-</p>
-</span>
-<a id="installation" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>To use this library in Node, install it from the command line:</p>
-<pre><code><span class="hl-0">npm</span><span class="hl-1"> -</span><span class="hl-0">save</span><span class="hl-1"> </span><span class="hl-0">install</span><span class="hl-1"> </span><span class="hl-0">rainbird</span>
-</code><button>Copy</button></pre>
-
-<a id="usage" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>See the <a href="media/index.html">API Guide</a> for details.</p>
-<a id="collaborators" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Collaborators<a href="#collaborators" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li>Main developer of the RaindBird API:
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>rainbird</title><meta name="description" content="Documentation for rainbird"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">rainbird</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>rainbird</h1></div><div class="tsd-panel tsd-typography"><h1 id="api-guide" class="tsd-anchor-link">API Guide<a href="#api-guide" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>This guide describes the methods, properties &amp; events of the RainBird service.</p>
+<h2 id="methods" class="tsd-anchor-link">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>
+<p><code>RainBirdService({   address: string,   password: string,   refreshRate?: number,   showRequestResponse: boolean,   syncTime: boolean})</code></p>
+<p>Instantiates the RainBirdService class.</p>
+<p>Parameters:</p>
 <ul>
-<li><a href="https://github.com/mantorok1">mantorok1</a></li>
+<li><code>address</code>: controller's local IP Address. Mandatory</li>
+<li><code>password</code>: controller's password. Mandatory</li>
+<li><code>refreshRate</code>: how often to request status from controller (in secords). Optional. Default is 0 (never check)</li>
+<li><code>showRequestResponse</code>: include requests &amp; responses in log events. Mandatory</li>
+<li><code>syncTime</code>: sync the machine time to the controller. Mandatory</li>
 </ul>
+<pre><code class="typescript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">RainBirdService</span><span class="hl-1">, </span><span class="hl-2">LogLevel</span><span class="hl-1">, </span><span class="hl-2">EventType</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;RainBird&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">// Create the RainBird service</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">rainbird</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">RainBirdService</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">address:</span><span class="hl-1"> </span><span class="hl-3">&#39;10.0.0.123&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">password:</span><span class="hl-1"> </span><span class="hl-3">&#39;mypassword&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">refreshRate:</span><span class="hl-1"> </span><span class="hl-8">90</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">showRequestResponse:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">syncTime:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>init(): Promise&lt;RainBirdMetaData&gt;</code></p>
+<p>Performs various initialisations for the service. This is typically done once immediately after instantiating the service. It performs the following:</p>
+<ul>
+<li>Retrieves the RainBird's model, version, serial number &amp; available zones</li>
+<li>Checks that its in the correct state to be controlled</li>
+<li>Sets up the status &amp; sync time jobs</li>
+<li>Returns various metadata about the RainBird</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Initialise the RainBird service</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">metadata</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">init</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>isActive(zone?: number): boolean</code></p>
+<p>Returns true if the specified zone is active (i.e. currently running or queued to run). If no zone number is supplied then will check if any zone is active.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>zone</code>: zone number. Optional</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Is Zone 1 currently running or queued to run</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">isZone1Active</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">isActive</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>isInUse(zone?: number): boolean</code></p>
+<p>Returns true if the specified zone is currently running (does not check if it's queued). If no zone number is supplied then will check if any zone is running.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>zone</code>: zone number. Optional</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Is Zone 1 current running?</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">isZone1Running</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">isInUse</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>remainingDuration(zone?: number): number</code></p>
+<p>Returns the amount of time (in seconds) remaining for the specified zone. If no zone number is supplied then will return the total for all active zones.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>zone</code>: zone number. Optional</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Get the remaining time for Zone 1</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">zone1TimeLeft</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">remainingDuration</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>activateZone(zone: number, duration: number): void</code></p>
+<p>Places the specified zone and duration into a queue. The zone will begin running for the specified duration once all other zones ahead in the queue have completed.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>zone</code>: zone number. Mandatory</li>
+<li><code>duration</code>: The amount of time (in seconds) for the zone to run. Mandatory.</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Active Zone 1 for 10 minutes (600 seconds)</span><br/><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">activateZone</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">, </span><span class="hl-8">600</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>deactivateZone(zone: number): Promise&lt;void&gt;</code></p>
+<p>Stops the specified zone or removes it from the queue.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>zone</code>: zone number. Mandatory</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Stop Zone 1 if its running or remove it from the queue</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">deactivateZone</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>deactivateAllZones(): void</code></p>
+<p>Stops the currently running zone and removes any others that are in the queue.</p>
+<pre><code class="typescript"><span class="hl-4">// Stop all zones</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">deactivateAllZones</span><span class="hl-1">(</span><span class="hl-8">1</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>startProgram(programId: string): Promise&lt;void&gt;</code></p>
+<p>Starts the specified RainBird program.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>programId</code>: The program identifier (letters A - D). Mandatory</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Start program A</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">startProgram</span><span class="hl-1">(</span><span class="hl-3">&#39;A&#39;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>isProgramRunning(programId: string): boolean | undefined</code></p>
+<p>Returns true if the specified program is currently running.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>programId</code>: The program identifier (letters A - D). Mandatory</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Is program A running?</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">isProgramArunning</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">isProgramRunning</span><span class="hl-1">(</span><span class="hl-3">&#39;A&#39;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>stopIrrigation(): Promise&lt;void&gt;</code></p>
+<p>Performs a Stop Irrigation command on the RainBird.</p>
+<pre><code class="typescript"><span class="hl-4">// Stop Irrigation</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">stopIrrigation</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>getIrrigatinDelay(): Promise&lt;number&gt;</code></p>
+<p>Returns the Irrigation Delay remaining (in days).</p>
+<pre><code class="typescript"><span class="hl-4">// Get Irrigation Delay days remaining</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">delayDaysLeft</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">getIrrigatinDelay</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>setIrrigationDelay(days: number): Promise&lt;void&gt;</code></p>
+<p>Set the number of days to delay the irrigation.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>days</code>: number of days to delay irrigation (1 - 14). Mandatory</li>
+</ul>
+<pre><code class="typescript"><span class="hl-4">// Set Irrigation Delay to 5 days</span><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">setIrrigationDelay</span><span class="hl-1">(</span><span class="hl-8">5</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
 </li>
 </ul>
-<a id="compatiable-controllers" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Compatiable Controllers<a href="#compatiable-controllers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Any controller that supports the <a href="https://www.rainbird.com/products/lnk-wifi-module">RainBird LNK WiFi Module</a> should be compatible. This includes:</p>
-<ul>
-<li>ESP-Me</li>
-<li>ESP-TM2</li>
-<li>ESP-RZXe</li>
-<li>ESP-ME3</li>
+<h2 id="properties" class="tsd-anchor-link">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>
+<p><code>model: string</code></p>
+<p>Returns the model number of the RainBird controller.</p>
+<pre><code class="typescript"><span class="hl-4">// Get the RainBird model number</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">model</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-2">model</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>version: string</code></p>
+<p>Returns the version of the RainBird controller.</p>
+<pre><code class="typescript"><span class="hl-4">// Get the RainBird version number</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">version</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-2">version</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>serialNumber: string</code></p>
+<p>Returns the serial number of the RainBird controller.</p>
+<pre><code class="typescript"><span class="hl-4">// Get the RainBird serial number</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">serialNumber</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-2">serialNumber</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>zones: number[]</code></p>
+<p>Returns the available zones of the RainBird controller in an array.</p>
+<pre><code class="typescript"><span class="hl-4">// Get the RainBird zones</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">zones</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-2">zones</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>rainSetPointReached: boolean</code></p>
+<p>Returns true if the rain sensor's set point has been reached.</p>
+<pre><code class="typescript"><span class="hl-4">// Is the rain sensor&#39;s set point reached?</span><br/><span class="hl-5">var</span><span class="hl-1"> </span><span class="hl-2">setPointReached</span><span class="hl-1"> = </span><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-2">rainSetPointReached</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
 </ul>
-<a id="known-limitations" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Known Limitations<a href="#known-limitations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li>Using the RainBird app while the plugin is running can cause connectivity issues.</li>
-<li>The RainBird LNK WiFi Module may not support "Band Steering" and WiFi Channel 13. Try not using these on your router if you are having connectivity issues.</li>
-<li>Some models do not yet have support for displaying the time remaining. If its not working for your model please log a GitHub issue and we will try to add it with your help.</li>
+<h2 id="events" class="tsd-anchor-link">Events<a href="#events" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>
+<p><code>log</code></p>
+<p>Raised when API wants to notify client of a specific log level &amp; message.</p>
+<pre><code class="typescript"><span class="hl-4">// Handle log events</span><br/><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">on</span><span class="hl-1">(</span><span class="hl-2">EventType</span><span class="hl-1">.</span><span class="hl-6">LOG</span><span class="hl-1">, (</span><span class="hl-2">log</span><span class="hl-1">) </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-3">`</span><span class="hl-5">${</span><span class="hl-2">log</span><span class="hl-9">.</span><span class="hl-2">level</span><span class="hl-5">}</span><span class="hl-3">: </span><span class="hl-5">${</span><span class="hl-2">log</span><span class="hl-9">.</span><span class="hl-2">message</span><span class="hl-5">}</span><span class="hl-3">`</span><span class="hl-1">);</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>status</code></p>
+<p>Raised when API wants to notify client of a status change</p>
+<pre><code class="typescript"><span class="hl-4">// Handle status events</span><br/><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">on</span><span class="hl-1">(</span><span class="hl-2">EventType</span><span class="hl-1">.</span><span class="hl-6">STATUS</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-3">&#39;RainBird status changed&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><code>rain_sensor_state</code></p>
+<p>Raised when API wants to notify client of a change to the rain sensor's state</p>
+<pre><code class="typescript"><span class="hl-4">// Handle status events</span><br/><span class="hl-2">rainbird</span><span class="hl-1">.</span><span class="hl-7">on</span><span class="hl-1">(</span><span class="hl-2">EventType</span><span class="hl-1">.</span><span class="hl-6">RAIN_SENSOR_STATE</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-3">&#39;Rain sensor state has changed&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
 </ul>
-</div></div><div class="col-sidebar" tabindex="-1"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked=""><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open="" class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details" tabindex="-1"><a href="#rainbird"><span>Rainbird</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><a href="#collaborators"><span>Collaborators</span></a></li><li><a href="#compatiable-controllers"><span>Compatiable <wbr>Controllers</span></a></li><li><a href="#known-limitations"><span>Known <wbr>Limitations</span></a></li></ul></div></details></div><div class="site-menu" tabindex="-1"><nav class="tsd-navigation"><a href="modules.html">rainbird</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"></ul></nav></div></div></div></main></body></html>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#api-guide"><span>API <wbr/>Guide</span></a><ul><li><a href="#methods"><span>Methods</span></a></li><li><a href="#properties"><span>Properties</span></a></li><li><a href="#events"><span>Events</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">rainbird</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>

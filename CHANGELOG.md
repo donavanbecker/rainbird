@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
+## [1.2.5](https://github.com/homebridge-plugins/rainbird/tag/v1.2.5) (2025-09-01)
+
+### What's Changed
+- Fix ESLint config for v9 compatibility (remove duplicate plugin and unsupported rules)
+- Housekeeping and updated dependencies
+
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.4...v1.2.5
+
 ## [1.2.4](https://github.com/homebridge-plugins/rainbird/tag/v1.2.4) (2025-06-10)
 
 ### What's Changed

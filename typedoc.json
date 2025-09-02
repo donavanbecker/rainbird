@@ -1,8 +1,4 @@
 {
-  "plugin": [
-    "@typhonjs-typedoc/typedoc-theme-dmt"
-  ],
-  "theme": "default-modern",
   "out": "docs",
   "readme": "api/api_guide.md",
   "exclude": ["src/**/*.spec.ts"],
