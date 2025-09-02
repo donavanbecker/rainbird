@@ -44,7 +44,7 @@ Before assigning issues to @copilot, apply one of these labels to determine vers
 - `npm run watch` -- Build, link, and run with nodemon for development
 
 ### Pre-publication Validation
-- `npm run prepublishOnly` -- Runs lint, build, docs, and lint-docs in sequence (takes ~15 seconds total)
+- `npm run prepublishOnly` -- Runs lint, build, docs, and lint-docs in sequence (takes ~16 seconds total)
 - Always run this before committing major changes as it mimics the CI validation
 
 ## Validation
@@ -64,8 +64,8 @@ Before assigning issues to @copilot, apply one of these labels to determine vers
 ### Manual Testing with Examples
 - Build the main library first: `npm run build`
 - Navigate to examples/: `cd examples`
-- Install example dependencies: `npm install`
-- Build the example: `npm run build` 
+- Install example dependencies: `npm install` (fast: ~1 second)
+- Build the example: `npm run build` (fast: ~3 seconds)
 - **NOTE**: `npm start` requires real controller credentials and will fail without hardware
 
 ### What to Test After Changes
@@ -129,6 +129,12 @@ Before assigning issues to @copilot, apply one of these labels to determine vers
 - **ALWAYS** target beta branches (beta-X.Y.Z) instead of main branch
 - Create beta branch if one doesn't exist for the target version
 - Follow semantic versioning based on the type of change being made
+
+### File Management and Git
+- The .gitignore is comprehensive and excludes build artifacts, node_modules, and temporary files
+- Generated docs/ folder is tracked in git (auto-generated TypeDoc output)
+- dist/ folder is ignored as it contains build output
+- When using report_progress, review committed files to ensure only intended changes are included
 
 ## Common Issues and Solutions
 
