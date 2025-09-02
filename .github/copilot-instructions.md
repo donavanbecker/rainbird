@@ -4,6 +4,27 @@ Always reference these instructions first and fallback to search or bash command
 
 RainBird is a TypeScript Node.js library for controlling RainBird irrigation controllers via the RainBird LNK WiFi Module. It provides an event-driven API to manage irrigation zones, programs, and controller settings. This library is published to npm and used primarily in home automation systems like Homebridge.
 
+## Branch Management and Release Strategy
+
+### Beta Branch Workflow
+- **REQUIRED**: All PRs must target branches starting with "beta-" prefix
+- Beta branches should be named after the target version: `beta-X.Y.Z`
+- If no beta branch exists for the target version, create one based on the next semantic version
+- Current version is tracked in package.json - increment appropriately for beta branches
+
+### Version Labeling Requirements
+Before assigning issues to @copilot, apply one of these labels to determine version bump:
+- **patch** - Bug fixes and minor improvements (X.Y.Z → X.Y.Z+1)
+- **minor** - New features and enhancements (X.Y.Z → X.Y+1.0)  
+- **major** - Breaking changes (X.Y.Z → X+1.0.0)
+
+### Branch Creation Process
+1. Check current version in package.json
+2. Determine version bump type from issue labels (patch/minor/major)
+3. Create beta branch: `git checkout -b beta-X.Y.Z` where X.Y.Z is the target version
+4. Target all development work to the beta branch
+5. Beta branches will be merged to main when ready for release
+
 ## Working Effectively
 
 ### Bootstrap and Setup
@@ -102,6 +123,12 @@ RainBird is a TypeScript Node.js library for controlling RainBird irrigation con
 - Build runs: install, build, test (lint), and ESLint
 - No unit tests currently exist in the project
 - CI will fail if build, lint, or docs generation fails
+
+### Working with Issues and PRs
+- **ALWAYS** check that issues have proper version labels (patch/minor/major) before starting work
+- **ALWAYS** target beta branches (beta-X.Y.Z) instead of main branch
+- Create beta branch if one doesn't exist for the target version
+- Follow semantic versioning based on the type of change being made
 
 ## Common Issues and Solutions
 
