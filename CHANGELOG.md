@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
+## [1.2.5](https://github.com/homebridge-plugins/rainbird/tag/v1.2.5) (2025-09-01)
+
+### What's Changed
+- Fix ESLint config for v9 compatibility (remove duplicate plugin and unsupported rules)
+- Update documentation for RainBirdService API
+- Add support for ESP-ME3 controller detection
+- Improve error handling for network timeouts
+- Refactor request/response classes for better type safety
+- Update dependencies and housekeeping
+
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.4...v1.2.5
+
 ## [1.2.4](https://github.com/homebridge-plugins/rainbird/tag/v1.2.4) (2025-06-10)
 
 ### What's Changed
