@@ -323,14 +323,23 @@ export class RainBirdClient extends events.EventEmitter {
     const decryptedResponse = JSON.parse(this.decrypt(encryptedResponse).replace(/[\x10\n\0]/g, ''))
 
     if (!decryptedResponse) {
+      if (this.showRequestResponse) {
+        this.emitLog('warn', `[${this.address}] Response: No response received`)
+      }
       this.emitLog('error', 'No response received')
       return
     }
     if (decryptedResponse.error) {
+      if (this.showRequestResponse) {
+        this.emitLog('warn', `[${this.address}] Response: Error ${decryptedResponse.error.code}: ${decryptedResponse.error.message}`)
+      }
       this.emitLog('error', `Received error from Rainbird controller ${decryptedResponse.error.code}: ${decryptedResponse.error.message}`)
       return
     }
     if (!decryptedResponse.result) {
+      if (this.showRequestResponse) {
+        this.emitLog('warn', `[${this.address}] Response: Invalid response (no result)`)
+      }
       this.emitLog('error', 'Invalid response received')
       return
     }
