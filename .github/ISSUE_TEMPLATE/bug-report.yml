@@ -1,7 +1,7 @@
 name: Bug-Report
 description: Report a Bug to help us improve
 title: "Bug: "
-labels: [bug]
+labels: [bug, patch]
 assignees:
   - donavanbecker
   - mantorok1
@@ -10,6 +10,11 @@ body:
     attributes:
       value: |
         You must use the issue template below when submitting a bug.
+        
+        **Version Impact**: This bug report is automatically labeled as `patch` (bug fix). If this represents a more significant change, please update the labels after submission:
+        - `patch`: Bug fixes and small improvements
+        - `minor`: New features or enhancements  
+        - `major`: Breaking changes
   - type: input
     attributes:
       label: Describe The Bug
