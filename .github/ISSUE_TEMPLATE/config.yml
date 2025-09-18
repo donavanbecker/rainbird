@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Discord Channel for Rainbird (homebridge-rainbird)
+  - name: Discord Channel for Rainbird (rainbird)
     url: https://discord.gg/peABghgtaV
     about: Please ask and answer questions here.
   - name: Rainbrid - Pull Requests
