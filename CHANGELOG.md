@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
+## [1.2.7](https://github.com/homebridge-plugins/rainbird/compare/v1.2.6...v1.2.7) (2026-04-07)
+
+
+### Features
+
+* add new request/response types from pyrainbird v6.3.0 ([c8d08e9](https://github.com/homebridge-plugins/rainbird/commit/c8d08e940cee4b4f97e833d79b7899c4a4446cb3))
+* wire new commands into RainBirdClient and RainBirdService ([6da706b](https://github.com/homebridge-plugins/rainbird/commit/6da706b4adcf26df830ceb07e3d7887a14cb76e2))
+
+## [1.2.6](https://github.com/homebridge-plugins/rainbird/compare/v1.2.5...v1.2.6) (2025-09-18)
+
+## [1.2.5](https://github.com/homebridge-plugins/rainbird/compare/v1.2.4...v1.2.5) (2025-09-02)
+
+## [1.2.4](https://github.com/homebridge-plugins/rainbird/compare/v1.2.3...v1.2.4) (2025-06-10)
+
+## [1.2.3](https://github.com/homebridge-plugins/rainbird/compare/v1.2.2...v1.2.3) (2025-03-05)
+
+## [1.2.2](https://github.com/homebridge-plugins/rainbird/compare/v1.2.1...v1.2.2) (2025-01-26)
+
+## [1.2.1](https://github.com/homebridge-plugins/rainbird/compare/v1.2.0...v1.2.1) (2025-01-17)
+
+# [1.2.0](https://github.com/homebridge-plugins/rainbird/compare/v1.1.0...v1.2.0) (2024-11-04)
+
+# [1.1.0](https://github.com/homebridge-plugins/rainbird/compare/v1.0.1...v1.1.0) (2024-08-31)
+
+## [1.0.1](https://github.com/homebridge-plugins/rainbird/compare/v1.0.0...v1.0.1) (2024-05-26)
+
+# [1.0.0](https://github.com/homebridge-plugins/rainbird/compare/v0.1.0...v1.0.0) (2024-01-31)
+
+# 0.1.0 (2024-01-22)
+
 ## [1.2.6](https://github.com/homebridge-plugins/rainbird/releases/tag/v1.2.6) (2025-09-18)
 
 ## What's Changed
