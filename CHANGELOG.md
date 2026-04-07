@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
+## [1.2.7](https://github.com/homebridge-plugins/rainbird/compare/v1.2.6...v1.2.7) (2026-04-07)
+
+### Features
+
+* add new request/response types from pyrainbird v6.3.0 ([c8d08e9](https://github.com/homebridge-plugins/rainbird/commit/c8d08e9))
+* wire new commands into RainBirdClient and RainBirdService ([6da706b](https://github.com/homebridge-plugins/rainbird/commit/6da706b))
+
+### Bug Fixes
+
+* add `.catch()` handler on `zoneQueue.add()` to prevent unhandled promise rejections under p-queue v9 ([6da706b](https://github.com/homebridge-plugins/rainbird/commit/6da706b))
+
+### Miscellaneous Chores
+
+* replace `axios` with `undici` for HTTP requests — lighter, no peer deps, built-in Node.js HTTP client ([faa7324](https://github.com/homebridge-plugins/rainbird/commit/faa7324))
+* bump `p-queue` to v9.1.2 — `throwOnTimeout` removed; timeouts always throw ([faa7324](https://github.com/homebridge-plugins/rainbird/commit/faa7324))
+* bump `eslint` to v10.2.0, `eslint-plugin-format` to v2.0.1, `eslint-plugin-perfectionist` to v5.8.0, `typescript` to v6.0.2, `@types/node` to v25.5.2 ([faa7324](https://github.com/homebridge-plugins/rainbird/commit/faa7324))
+* update `perfectionist/sort-imports` group names for eslint-plugin-perfectionist v5.x API change (`builtin-type` → `type-builtin`, etc.) ([fe3a344](https://github.com/homebridge-plugins/rainbird/commit/fe3a344))
+* add `"types": ["node"]` to tsconfig for TypeScript 6 compatibility with `node:` prefix imports ([fe3a344](https://github.com/homebridge-plugins/rainbird/commit/fe3a344))
+* consolidate beta and stable release workflows into a single `release.yml`; remove separate `beta-release.yml` ([c514c88](https://github.com/homebridge-plugins/rainbird/commit/c514c88))
+
+**Full Changelog**: https://github.com/homebridge-plugins/rainbird/compare/v1.2.6...v1.2.7
+
 ## [1.2.6](https://github.com/homebridge-plugins/rainbird/releases/tag/v1.2.6) (2025-09-18)
 
 ## What's Changed

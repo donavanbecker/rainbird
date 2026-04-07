@@ -53,19 +53,6 @@ jobs:
         **Version**: v${{ needs.beta-publish.outputs.NPM_VERSION }}
         [How To Test Beta Releases](https://github.com/homebridge-plugins/rainbird/wiki/Beta-Version)
 
-  # 5️⃣ Post to Discord
-  beta-discord:
-    name: Discord Webhooks (Beta)
-    if: startsWith(github.ref_name, 'beta')
-    needs: [build_and_test, beta-publish]
-    uses: homebridge/.github/.github/workflows/discord-webhooks.yml@latest
-    with:
-      title: "RainBird Beta Release"
-      description: |
-        Version `v${{ needs.beta-publish.outputs.NPM_VERSION }}`
-      url: "https://github.com/homebridge-plugins/rainbird/releases/tag/v${{ needs.beta-publish.outputs.NPM_VERSION }}"
-    secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL_LATEST }}
 
   # ─── STABLE RELEASE (branch: "latest") ───────────────────────────────────────
 
@@ -120,16 +107,16 @@ jobs:
       job_name: ${{ github.job }}
       run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-  # 6️⃣ Post to Discord
-  stable-discord:
-    name: Discord Webhooks (Stable)
-    if: github.ref_name == 'latest'
-    needs: [determine-release-type, update-version, publish-release]
+  # 6️⃣ Post to Discord (Beta + Stable)
+  discord:
+    name: Release Notifications
+    if: ${{ always() && ((startsWith(github.ref_name, 'beta') && needs.beta-publish.result == 'success') || (github.ref_name == 'latest' && needs.publish-release.result == 'success')) }}
+    needs: [beta-publish, update-version, publish-release]
     uses: homebridge/.github/.github/workflows/discord-webhooks.yml@latest
     with:
-      title: "RainBird Release"
+      title: ${{ startsWith(github.ref_name, 'beta') && 'Homebridge RainBird Beta Release' || 'Homebridge RainBird Release' }}
       description: |
-        Version `v${{ needs.update-version.outputs.version }}`
-      url: "https://github.com/homebridge-plugins/rainbird/releases/tag/v${{ needs.update-version.outputs.version }}"
+        Version `v${{ startsWith(github.ref_name, 'beta') && needs.beta-publish.outputs.NPM_VERSION || needs.update-version.outputs.version }}`
+      url: "https://github.com/homebridge-plugins/rainbird/releases/tag/v${{ startsWith(github.ref_name, 'beta') && needs.beta-publish.outputs.NPM_VERSION || needs.update-version.outputs.version }}"
     secrets:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL_LATEST }}
