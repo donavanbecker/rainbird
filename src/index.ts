@@ -5,3 +5,10 @@
 export * from './RainBird/EventType.js'
 export * from './RainBird/LogLevel.js'
 export * from './RainBird/RainBirdService.js'
+export type {
+  ScheduleControllerInfo,
+  ScheduleProgramInfo,
+  ScheduleProgramStartInfo,
+  ScheduleZoneDuration,
+  ScheduleZoneInfo,
+} from './RainBird/responses/RetrieveScheduleResponse.js'

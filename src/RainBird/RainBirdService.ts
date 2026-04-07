@@ -201,7 +201,7 @@ export class RainBirdService extends events.EventEmitter {
     const remaining = this._zones[zone].durationTime === undefined
       ? this._zones[zone].remainingDuration
       : this._zones[zone].remainingDuration - Math.round(
-        ((new Date()).getTime() - this._zones[zone].durationTime!.getTime()) / 1000,
+        (Date.now() - this._zones[zone].durationTime!.getTime()) / 1000,
       )
 
     return Math.max(remaining, 0)
@@ -212,7 +212,9 @@ export class RainBirdService extends events.EventEmitter {
 
     this._zones[zone].queued = true
     this._zones[zone].remainingDuration = duration
-    this.zoneQueue.add(this.startZone.bind(this, zone, duration))
+    this.zoneQueue.add(this.startZone.bind(this, zone, duration)).catch((error) => {
+      this.emitLog('warn', `Zone ${zone}: Queue error [${error}]`)
+    })
   }
 
   async deactivateZone(zone: number): Promise<void> {
@@ -409,6 +411,76 @@ export class RainBirdService extends events.EventEmitter {
       await this._client.setIrrigstionDelay(days)
     } catch (e: any) {
       this.emitLog('error', `Failed to set irrigation delay: ${e.message ?? e}`)
+    }
+  }
+
+  public async getCommandSupport(commandId: number): Promise<boolean> {
+    try {
+      const response = await this._client.getCommandSupport(commandId)
+      return response.support
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get command support: ${e.message ?? e}`)
+      return false
+    }
+  }
+
+  public async getControllerFirmwareVersion(): Promise<string> {
+    try {
+      const response = await this._client.getControllerFirmwareVersion()
+      return response.version
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get controller firmware version: ${e.message ?? e}`)
+      return 'Unknown'
+    }
+  }
+
+  public async getWaterBudget(program: number): Promise<number> {
+    try {
+      const response = await this._client.getWaterBudget(program)
+      return response.seasonalAdjust
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get water budget: ${e.message ?? e}`)
+      return 0
+    }
+  }
+
+  public async getZonesSeasonalAdjustFactor(program: number): Promise<number[]> {
+    try {
+      const response = await this._client.getZonesSeasonalAdjustFactor(program)
+      return response.stationsSA
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get zones seasonal adjust factor: ${e.message ?? e}`)
+      return []
+    }
+  }
+
+  public async testZone(zone: number): Promise<void> {
+    try {
+      this.emitLog('info', `Zone ${zone}: Test`)
+      await this._client.testZone(zone)
+      this._statusRefreshSubject.next()
+    } catch (e: any) {
+      this.emitLog('error', `Failed to test zone ${zone}: ${e.message ?? e}`)
+    }
+  }
+
+  public async getControllerEventTimestamp(eventId: number): Promise<number> {
+    try {
+      const response = await this._client.getControllerEventTimestamp(eventId)
+      return response.timestamp
+    } catch (e: any) {
+      this.emitLog('error', `Failed to get controller event timestamp: ${e.message ?? e}`)
+      return 0
+    }
+  }
+
+  public async stackRunZone(page: number, zone: number, minutes: number): Promise<void> {
+    try {
+      this.emitLog('info', `Zone ${zone}: Stack run for ${minutes} minutes (page ${page})`)
+      await this._client.stackRunZone(page, zone, minutes)
+      this._statusRefreshSubject.next()
+    } catch (e: any) {
+      this.emitLog('error', `Failed to stack run zone ${zone}: ${e.message ?? e}`)
     }
   }
 
@@ -677,7 +749,7 @@ export class RainBirdService extends events.EventEmitter {
   }
 
   private async displaySupportWarning(page0: Buffer): Promise<void> {
-    const now = (new Date()).getTime()
+    const now = Date.now()
     if (now - this._lastSupportWarning < 24 * 60 * 60 * 1000) {
       return
     }

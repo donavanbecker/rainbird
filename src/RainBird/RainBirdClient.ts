@@ -1,5 +1,3 @@
-import type { AxiosRequestConfig } from 'axios'
-
 import type { Request } from './requests/Request.js'
 import type { Response } from './responses/Response.js'
 
@@ -8,14 +6,17 @@ import crypto from 'node:crypto'
 import * as events from 'node:events'
 
 import aesjs from 'aes-js'
-import axios from 'axios'
 import PQueue from 'p-queue'
 import encoder from 'text-encoder'
+import { request as undiciRequest } from 'undici'
 
 import { AdvanceZoneRequest } from './requests/AdvanceZoneRequest.js'
 import { AvailableZonesRequest } from './requests/AvailableZonesRequest.js'
+import { CommandSupportRequest } from './requests/CommandSupportRequest.js'
 import { ControllerDateGetRequest } from './requests/ControllerDateGetRequest.js'
 import { ControllerDateSetRequest } from './requests/ControllerDateSetRequest.js'
+import { ControllerEventTimestampRequest } from './requests/ControllerEventTimestampRequest.js'
+import { ControllerFirmwareVersionRequest } from './requests/ControllerFirmwareVersionRequest.js'
 import { ControllerStateRequest } from './requests/ControllerStateRequest.js'
 import { ControllerTimeGetRequest } from './requests/ControllerTimeGetRequest.js'
 import { ControllerTimeSetRequest } from './requests/ControllerTimeSetRequest.js'
@@ -27,13 +28,21 @@ import { ModelAndVersionRequest } from './requests/ModelAndVersionRequest.js'
 import { ProgramZoneStateRequest } from './requests/ProgramZoneStateRequest.js'
 import { RainSensorStateRequest } from './requests/RainSensorStateRequest.js'
 import { RawRequest } from './requests/RawRequest.js'
+import { RetrieveScheduleRequest } from './requests/RetrieveScheduleRequest.js'
 import { RunProgramRequest } from './requests/RunProgramRequest.js'
 import { RunZoneRequest } from './requests/RunZoneRequest.js'
 import { SerialNumberRequest } from './requests/SerialNumberRequest.js'
+import { StackRunZoneRequest } from './requests/StackRunZoneRequest.js'
 import { StopIrrigationRequest } from './requests/StopIrrigationRequest.js'
+import { TestZoneRequest } from './requests/TestZoneRequest.js'
+import { WaterBudgetRequest } from './requests/WaterBudgetRequest.js'
+import { ZonesSeasonalAdjustFactorRequest } from './requests/ZonesSeasonalAdjustFactorRequest.js'
 import { AcknowledgedResponse } from './responses/AcknowledgedResponse.js'
 import { AvailableZonesResponse } from './responses/AvailableZonesResponse.js'
+import { CommandSupportResponse } from './responses/CommandSupportResponse.js'
 import { ControllerDateGetResponse } from './responses/ControllerDateGetResponse.js'
+import { ControllerEventTimestampResponse } from './responses/ControllerEventTimestampResponse.js'
+import { ControllerFirmwareVersionResponse } from './responses/ControllerFirmwareVersionResponse.js'
 import { ControllerStateResponse } from './responses/ControllerStateResponse.js'
 import { ControllerTimeGetResponse } from './responses/ControllerTimeGetResponse.js'
 import { CurrentZoneResponse } from './responses/CurrentZoneResponse.js'
@@ -44,7 +53,10 @@ import { NotAcknowledgedResponse } from './responses/NotAcknowledgedResponse.js'
 import { ProgramZoneStateResponse } from './responses/ProgramZoneStateResponse.js'
 import { RainSensorStateResponse } from './responses/RainSensorStateResponse.js'
 import { RawResponse } from './responses/RawResponse.js'
+import { RetrieveScheduleResponse } from './responses/RetrieveScheduleResponse.js'
 import { SerialNumberResponse } from './responses/SerialNumberResponse.js'
+import { WaterBudgetResponse } from './responses/WaterBudgetResponse.js'
+import { ZonesSeasonalAdjustFactorResponse } from './responses/ZonesSeasonalAdjustFactorResponse.js'
 
 interface RainBirdRequest {
   type: Request
@@ -285,6 +297,84 @@ export class RainBirdClient extends events.EventEmitter {
     // return await this.requestQueue(request) as AcknowledgedResponse;
   }
 
+  public async getCommandSupport(commandId: number): Promise<CommandSupportResponse> {
+    const request: RainBirdRequest = {
+      type: new CommandSupportRequest(commandId),
+      retry: false,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as CommandSupportResponse
+  }
+
+  public async getControllerFirmwareVersion(): Promise<ControllerFirmwareVersionResponse> {
+    const request: RainBirdRequest = {
+      type: new ControllerFirmwareVersionRequest(),
+      retry: true,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as ControllerFirmwareVersionResponse
+  }
+
+  public async retrieveSchedule(page = 0): Promise<RetrieveScheduleResponse> {
+    const request: RainBirdRequest = {
+      type: new RetrieveScheduleRequest(page),
+      retry: false,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as RetrieveScheduleResponse
+  }
+
+  public async getWaterBudget(program: number): Promise<WaterBudgetResponse> {
+    const request: RainBirdRequest = {
+      type: new WaterBudgetRequest(program),
+      retry: false,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as WaterBudgetResponse
+  }
+
+  public async getZonesSeasonalAdjustFactor(program: number): Promise<ZonesSeasonalAdjustFactorResponse> {
+    const request: RainBirdRequest = {
+      type: new ZonesSeasonalAdjustFactorRequest(program),
+      retry: false,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as ZonesSeasonalAdjustFactorResponse
+  }
+
+  public async testZone(zone: number): Promise<AcknowledgedResponse | NotAcknowledgedResponse> {
+    const request: RainBirdRequest = {
+      type: new TestZoneRequest(zone),
+      retry: false,
+      postDelay: 1,
+    }
+    const response = await this.queue.add(() => this.sendRequest(request))
+    return response!.type === 0
+      ? response as NotAcknowledgedResponse
+      : response as AcknowledgedResponse
+  }
+
+  public async getControllerEventTimestamp(eventId: number): Promise<ControllerEventTimestampResponse> {
+    const request: RainBirdRequest = {
+      type: new ControllerEventTimestampRequest(eventId),
+      retry: false,
+      postDelay: 0,
+    }
+    return await this.queue.add(() => this.sendRequest(request)) as ControllerEventTimestampResponse
+  }
+
+  public async stackRunZone(page: number, zone: number, minutes: number): Promise<AcknowledgedResponse | NotAcknowledgedResponse> {
+    const request: RainBirdRequest = {
+      type: new StackRunZoneRequest(page, zone, minutes),
+      retry: false,
+      postDelay: 1,
+    }
+    const response = await this.queue.add(() => this.sendRequest(request))
+    return response!.type === 0
+      ? response as NotAcknowledgedResponse
+      : response as AcknowledgedResponse
+  }
+
   private async sendRequest(request: RainBirdRequest): Promise<Response | undefined> {
     if (this.showRequestResponse) {
       this.emitLog('warn', `[${this.address}] Request:  ${request.type}`)
@@ -294,15 +384,19 @@ export class RainBirdClient extends events.EventEmitter {
       try {
         const url = `http://${this.address}/stick`
         const data: Buffer = this.encrypt(request.type)
-        const config = this.createRequestConfig()
 
-        const resp = await axios.post(url, data, config)
+        const { statusCode, body } = await undiciRequest(url, {
+          method: 'POST',
+          body: data,
+          headers: this.requestHeaders(),
+        })
 
-        if (!resp.statusText || resp.status !== 200) {
-          throw new Error(`Invalid Response [Status: ${resp.status}, Text: ${resp.statusText}]`)
+        if (statusCode !== 200) {
+          throw new Error(`Invalid Response [Status: ${statusCode}]`)
         }
 
-        const response = this.getResponse(resp.data as Buffer)
+        const responseBuffer = Buffer.from(await body.arrayBuffer())
+        const response = this.getResponse(responseBuffer)
         await this.delay(request.postDelay)
 
         return response
@@ -359,14 +453,29 @@ export class RainBirdClient extends events.EventEmitter {
       case 0x83:
         response = new AvailableZonesResponse(data)
         break
+      case 0x84:
+        response = new CommandSupportResponse(data)
+        break
       case 0x85:
         response = new SerialNumberResponse(data)
+        break
+      case 0x8B:
+        response = new ControllerFirmwareVersionResponse(data)
         break
       case 0x90:
         response = new ControllerTimeGetResponse(data)
         break
       case 0x92:
         response = new ControllerDateGetResponse(data)
+        break
+      case 0xA0:
+        response = new RetrieveScheduleResponse(data)
+        break
+      case 0xB0:
+        response = new WaterBudgetResponse(data)
+        break
+      case 0xB2:
+        response = new ZonesSeasonalAdjustFactorResponse(data)
         break
       case 0xB6:
         response = new IrrigationDelayGetResponse(data)
@@ -382,6 +491,9 @@ export class RainBirdClient extends events.EventEmitter {
         break
       case 0xC8:
         response = new IrrigationStateResponse(data)
+        break
+      case 0xCA:
+        response = new ControllerEventTimestampResponse(data)
         break
       case 0xCC:
         response = new ControllerStateResponse(data)
@@ -433,17 +545,14 @@ export class RainBirdClient extends events.EventEmitter {
     })
   }
 
-  private createRequestConfig(): AxiosRequestConfig {
+  private requestHeaders(): Record<string, string> {
     return {
-      responseType: 'arraybuffer',
-      headers: {
-        'Accept-Language': 'en',
-        'Accept-Encoding': 'gzip, deflate',
-        'User-Agent': 'RainBird/2.0 CFNetwork/811.5.4 Darwin/16.7.0',
-        'Accept': '*/*',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/octet-stream',
-      },
+      'Accept-Language': 'en',
+      'Accept-Encoding': 'gzip, deflate',
+      'User-Agent': 'RainBird/2.0 CFNetwork/811.5.4 Darwin/16.7.0',
+      'Accept': '*/*',
+      'Connection': 'keep-alive',
+      'Content-Type': 'application/octet-stream',
     }
   }
 
