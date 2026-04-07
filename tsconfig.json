@@ -5,6 +5,9 @@
       "DOM",
       "ES2022"
     ],
+    "types": [
+      "node"
+    ],
     "rootDir": "src",
     "module": "ES2022",
     "moduleResolution": "bundler",
