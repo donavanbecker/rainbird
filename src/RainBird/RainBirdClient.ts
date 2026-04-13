@@ -66,6 +66,9 @@ interface RainBirdRequest {
 
 export class RainBirdClient extends events.EventEmitter {
   private readonly RETRY_DELAY = 60
+  private readonly address: string
+  private readonly password: string
+  private readonly showRequestResponse: boolean
 
   /* private requestQueue = cq()
     .limit({ concurrency: 1 })
@@ -76,11 +79,14 @@ export class RainBirdClient extends events.EventEmitter {
   })
 
   constructor(
-    private readonly address: string,
-    private readonly password: string,
-    private readonly showRequestResponse: boolean,
+    address: string,
+    password: string,
+    showRequestResponse: boolean,
   ) {
     super()
+    this.address = address
+    this.password = password
+    this.showRequestResponse = showRequestResponse
   }
 
   /**

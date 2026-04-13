@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 export enum EventType {
   LOG = 'log',
   STATUS = 'status',
