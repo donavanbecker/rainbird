@@ -8,7 +8,7 @@ import * as events from 'node:events'
 import aesjs from 'aes-js'
 import PQueue from 'p-queue'
 import encoder from 'text-encoder'
-import { request as undiciRequest } from 'undici'
+import { Agent, request as undiciRequest } from 'undici'
 
 import { AdvanceZoneRequest } from './requests/AdvanceZoneRequest.js'
 import { AvailableZonesRequest } from './requests/AvailableZonesRequest.js'
@@ -69,6 +69,10 @@ export class RainBirdClient extends events.EventEmitter {
   private readonly address: string
   private readonly password: string
   private readonly showRequestResponse: boolean
+
+  // Protocol discovery state: determined on first request
+  private _url: string | null = null
+  private _httpsAgent: Agent | null = null
 
   /* private requestQueue = cq()
     .limit({ concurrency: 1 })
@@ -388,14 +392,33 @@ export class RainBirdClient extends events.EventEmitter {
 
     while (true) {
       try {
-        const url = `http://${this.address}/stick`
+        // On first request, attempt HTTPS (RainBird v2 uses HTTPS with self-signed cert).
+        // Fall back to HTTP if the connection fails at the transport/TLS level.
+        let url: string
+        let agent: Agent | undefined
+        if (this._url === null) {
+          url = `https://${this.address}/stick`
+          agent = new Agent({ connect: { rejectUnauthorized: false } })
+        } else {
+          url = this._url
+          agent = this._httpsAgent ?? undefined
+        }
+
         const data: Buffer = this.encrypt(request.type)
 
         const { statusCode, body } = await undiciRequest(url, {
           method: 'POST',
           body: data,
           headers: this.requestHeaders(),
+          dispatcher: agent,
         })
+
+        // HTTPS responded at the protocol level: store URL and agent for all future requests.
+        if (this._url === null) {
+          this._url = url
+          this._httpsAgent = agent ?? null
+          this.emitLog('debug', `[${this.address}] Using HTTPS`)
+        }
 
         if (statusCode !== 200) {
           throw new Error(`Invalid Response [Status: ${statusCode}]`)
@@ -407,6 +430,14 @@ export class RainBirdClient extends events.EventEmitter {
 
         return response
       } catch (error) {
+        // If protocol has not yet been discovered and this is a transport/TLS error,
+        // the controller does not support HTTPS — fall back to plain HTTP and retry.
+        if (this._url === null && this.isConnectionError(error)) {
+          this._url = `http://${this.address}/stick`
+          this._httpsAgent = null
+          this.emitLog('debug', `[${this.address}] HTTPS unavailable, using HTTP`)
+          continue
+        }
         this.emitLog('error', `RainBird controller request failed. [${error}]`)
         this.emitLog('error', `Failed Request: ${request.type}`)
         if (!request.retry) {
@@ -416,6 +447,32 @@ export class RainBirdClient extends events.EventEmitter {
         await this.delay(this.RETRY_DELAY)
       }
     }
+  }
+
+  /**
+   * Determine whether an error is a transport/TLS connection failure (as opposed to
+   * an HTTP-level error such as 403 Forbidden or 503 Service Unavailable).
+   * Used during protocol discovery to decide whether to fall back from HTTPS to HTTP.
+   */
+  private isConnectionError(error: unknown): boolean {
+    if (!(error instanceof Error)) {
+      return false
+    }
+    const code = (error as Error & { code?: string }).code
+    const msg = error.message.toLowerCase()
+    return (
+      code === 'ECONNRESET'
+      || code === 'ECONNREFUSED'
+      || code === 'ENOTFOUND'
+      || code === 'ERR_SSL_WRONG_VERSION_NUMBER'
+      || code === 'ERR_SSL_NO_PROTOCOLS_AVAILABLE'
+      || code === 'ERR_SSL_SSLV3_ALERT_HANDSHAKE_FAILURE'
+      || code === 'UND_ERR_CONNECT_TIMEOUT'
+      || msg.includes('ssl')
+      || msg.includes('tls')
+      || msg.includes('socket hang up')
+      || msg.includes('connect timeout')
+    )
   }
 
   private getResponse(encryptedResponse: Buffer): Response | undefined {
