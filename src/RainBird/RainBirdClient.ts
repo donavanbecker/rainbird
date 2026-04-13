@@ -70,9 +70,34 @@ export class RainBirdClient extends events.EventEmitter {
   private readonly password: string
   private readonly showRequestResponse: boolean
 
-  // Protocol discovery state: determined on first request
+  // Protocol discovery state: determined on first request.
+  // RainBird v2 controllers use HTTPS with a self-signed certificate.
+  // We probe HTTPS first; if the transport fails, we fall back to HTTP.
   private _url: string | null = null
-  private _httpsAgent: Agent | null = null
+  // Shared HTTPS agent that bypasses certificate validation for self-signed certs.
+  // NOTE: rejectUnauthorized is false because RainBird controllers use self-signed
+  // certificates. This is a known security trade-off for local LAN communication;
+  // certificate pinning is not feasible as the cert is device-generated.
+  private readonly _httpsAgent: Agent = new Agent({ connect: { rejectUnauthorized: false } })
+
+  // Error codes that indicate a transport/TLS failure (not an HTTP-level error).
+  // Used during protocol discovery to decide whether to fall back from HTTPS to HTTP.
+  private static readonly CONNECTION_ERROR_CODES: ReadonlySet<string> = new Set([
+    'ECONNRESET',
+    'ECONNREFUSED',
+    'ENOTFOUND',
+    'ERR_SSL_WRONG_VERSION_NUMBER',
+    'ERR_SSL_NO_PROTOCOLS_AVAILABLE',
+    'ERR_SSL_SSLV3_ALERT_HANDSHAKE_FAILURE',
+    'UND_ERR_CONNECT_TIMEOUT',
+  ])
+
+  private static readonly CONNECTION_ERROR_SUBSTRINGS: readonly string[] = [
+    'ssl',
+    'tls',
+    'socket hang up',
+    'connect timeout',
+  ]
 
   /* private requestQueue = cq()
     .limit({ concurrency: 1 })
@@ -395,13 +420,14 @@ export class RainBirdClient extends events.EventEmitter {
         // On first request, attempt HTTPS (RainBird v2 uses HTTPS with self-signed cert).
         // Fall back to HTTP if the connection fails at the transport/TLS level.
         let url: string
-        let agent: Agent | undefined
+        let dispatcher: Agent | undefined
         if (this._url === null) {
           url = `https://${this.address}/stick`
-          agent = new Agent({ connect: { rejectUnauthorized: false } })
+          dispatcher = this._httpsAgent
         } else {
           url = this._url
-          agent = this._httpsAgent ?? undefined
+          // _httpsAgent is used when the controller speaks HTTPS; undefined for HTTP.
+          dispatcher = this._url.startsWith('https:') ? this._httpsAgent : undefined
         }
 
         const data: Buffer = this.encrypt(request.type)
@@ -410,13 +436,12 @@ export class RainBirdClient extends events.EventEmitter {
           method: 'POST',
           body: data,
           headers: this.requestHeaders(),
-          dispatcher: agent,
+          dispatcher,
         })
 
-        // HTTPS responded at the protocol level: store URL and agent for all future requests.
+        // HTTPS responded at the protocol level: store URL for all future requests.
         if (this._url === null) {
           this._url = url
-          this._httpsAgent = agent ?? null
           this.emitLog('debug', `[${this.address}] Using HTTPS`)
         }
 
@@ -434,7 +459,6 @@ export class RainBirdClient extends events.EventEmitter {
         // the controller does not support HTTPS — fall back to plain HTTP and retry.
         if (this._url === null && this.isConnectionError(error)) {
           this._url = `http://${this.address}/stick`
-          this._httpsAgent = null
           this.emitLog('debug', `[${this.address}] HTTPS unavailable, using HTTP`)
           continue
         }
@@ -460,19 +484,10 @@ export class RainBirdClient extends events.EventEmitter {
     }
     const code = (error as Error & { code?: string }).code
     const msg = error.message.toLowerCase()
-    return (
-      code === 'ECONNRESET'
-      || code === 'ECONNREFUSED'
-      || code === 'ENOTFOUND'
-      || code === 'ERR_SSL_WRONG_VERSION_NUMBER'
-      || code === 'ERR_SSL_NO_PROTOCOLS_AVAILABLE'
-      || code === 'ERR_SSL_SSLV3_ALERT_HANDSHAKE_FAILURE'
-      || code === 'UND_ERR_CONNECT_TIMEOUT'
-      || msg.includes('ssl')
-      || msg.includes('tls')
-      || msg.includes('socket hang up')
-      || msg.includes('connect timeout')
-    )
+    if (code !== undefined && RainBirdClient.CONNECTION_ERROR_CODES.has(code)) {
+      return true
+    }
+    return RainBirdClient.CONNECTION_ERROR_SUBSTRINGS.some(s => msg.includes(s))
   }
 
   private getResponse(encryptedResponse: Buffer): Response | undefined {
