@@ -592,7 +592,9 @@ export class RainBirdClient extends events.EventEmitter {
     const
       passwordHash = crypto.createHash('sha256').update(this.toBytes(this.password)).digest()
     const randomBytes = crypto.randomBytes(16)
-    const packedRequest = this.toBytes(this.addPadding(`${formattedRequest}\x00\x10`))
+    // Pure null padding with no legacy \x00\x10 suffix — newer LNK2 firmware
+    // crashes on the legacy packing (mirrors allenporter/pyrainbird#589)
+    const packedRequest = this.toBytes(this.addPadding(formattedRequest))
     const hashedRequest = crypto.createHash('sha256').update(this.toBytes(formattedRequest)).digest()
     // eslint-disable-next-line new-cap
     const easEncryptor = new aesjs.ModeOfOperation.cbc(passwordHash, randomBytes)
@@ -640,10 +642,8 @@ export class RainBirdClient extends events.EventEmitter {
 
   private addPadding(data: string): string {
     const BLOCK_SIZE = 16
-    const dataLength = data.length
-    const charsToAdd = (dataLength + BLOCK_SIZE) - (dataLength % BLOCK_SIZE) - dataLength
-    const pad_string = Array.from({ length: charsToAdd + 1 }).join('\x10')
-    return [data, pad_string].join('')
+    const padLength = (BLOCK_SIZE - (data.length % BLOCK_SIZE)) % BLOCK_SIZE
+    return data + '\x00'.repeat(padLength)
   }
 
   private async delay(sec: number): Promise<void> {
