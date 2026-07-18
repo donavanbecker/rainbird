@@ -1,3 +1,12 @@
+## [1.2.11](https://github.com/homebridge-plugins/rainbird/compare/v1.2.10...v1.2.11) (2026-07-18)
+
+
+### Bug Fixes
+
+* widen supported node engines to include node 24 ([487f770](https://github.com/homebridge-plugins/rainbird/commit/487f77011f35cf2e7ff93fb2bc2198c673025eec))
+
+
+
 ## [1.2.10](https://github.com/homebridge-plugins/rainbird/compare/v1.2.9...v1.2.10) (2026-07-18)
 
 
