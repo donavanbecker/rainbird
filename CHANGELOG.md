@@ -1,4 +1,15 @@
-# Changelog
+## [1.2.10](https://github.com/homebridge-plugins/rainbird/compare/v1.2.9...v1.2.10) (2026-07-18)
+
+
+
+## 1.2.10-beta.0 (2026-07-17)
+
+
+### Bug Fixes
+
+* use pure null padding without the legacy suffix so newer lnk2 firmware accepts requests ([b82dbaa](https://github.com/homebridge-plugins/rainbird/commit/b82dbaacdf579b851c4ad93551076dcc78e616d9))
+
+**# Changelog
 
 All notable changes to this project will be documented in this file. This project uses [Semantic Versioning](https://semver.org/)
 
