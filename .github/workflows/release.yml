@@ -8,6 +8,12 @@ on:
       - 'latest'
   workflow_dispatch:
 
+# Cancel any in-progress workflow for the same branch. A new push should
+# supersede the previous run rather than racing it to publish.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # ─── BETA RELEASE (branches starting with "beta") ────────────────────────────
 
