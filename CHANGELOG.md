@@ -1,9 +1,3 @@
-## 1.2.13 (Pending Release)
-
-### Changed
-
-- chore: keep test files out of the published package
-
 ## [1.2.11](https://github.com/homebridge-plugins/rainbird/compare/v1.2.10...v1.2.11) (2026-07-18)
 
 
