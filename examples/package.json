@@ -1,14 +1,14 @@
 {
-    "name": "example_init",
-    "version": "1.0.0",
-    "main": "example_init.js",
-    "type": "module",
-    "scripts": {
-      "build": "tsc",
-      "start": "node example_init.js"
-    },
-    "dependencies": {},
-    "devDependencies": {
-      "typescript": "^5.0.0"
-    }
+  "name": "example_init",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "example_init.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node example_init.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
   }
+}

@@ -10,8 +10,9 @@ assignees: ''
 <!-- You must use the issue template below when submitting a bug -->
 
 > **⚠️ IMPORTANT**: Before assigning to @copilot, ensure this issue has appropriate version labels:
+>
 > - `patch` - Bug fixes and small improvements (default for bug reports)
-> - `minor` - New features or enhancements  
+> - `minor` - New features or enhancements
 > - `major` - Breaking changes
 
 **Describe The Bug:**

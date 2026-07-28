@@ -25,8 +25,9 @@ assignees:
 **Version Impact**
 
 <!-- Check the appropriate box based on the type of change: -->
+
 - [ ] `patch` - Bug fixes and small improvements
-- [ ] `minor` - New features or enhancements  
+- [ ] `minor` - New features or enhancements
 - [ ] `major` - Breaking changes
 
 **Describe alternatives you've considered**

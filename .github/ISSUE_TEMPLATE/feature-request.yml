@@ -1,6 +1,6 @@
 name: Feature Request
 description: Suggest an idea for this project
-title: "Feature Request: "
+title: 'Feature Request: '
 labels: [enhancement, minor]
 assignees:
   - donavanbecker
@@ -10,15 +10,15 @@ body:
     attributes:
       value: |
         Is your feature request related to a problem? Please describe.
-        
+
         **Version Impact**: This feature request is automatically labeled as `minor` (new feature). If this represents a different type of change, please update the labels after submission:
         - `patch`: Bug fixes and small improvements
-        - `minor`: New features or enhancements  
+        - `minor`: New features or enhancements
         - `major`: Breaking changes
   - type: input
     attributes:
       label: Problem
-      placeholder: A clear and concise description of what the problem is. Ex. I am always frustrated when [...] 
+      placeholder: A clear and concise description of what the problem is. Ex. I am always frustrated when [...]
     validations:
       required: false
   - type: input

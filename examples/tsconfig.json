@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "Node",
-      "outDir": "./",
-      "rootDir": "./",
-      "strict": true,
-      "esModuleInterop": true
-    },
-    "include": ["example_init.ts"],
-    "exclude": ["node_modules"]
-  }
+  "compilerOptions": {
+    "target": "ESNext",
+    "rootDir": "./",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "outDir": "./",
+    "esModuleInterop": true
+  },
+  "include": ["example_init.ts"],
+  "exclude": ["node_modules"]
+}

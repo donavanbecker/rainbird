@@ -9,21 +9,21 @@ How to run this example:
 5. Run the example: npm start
 
 */
-import { RainBirdService, LogLevel, EventType } from '../dist/index.js';
+import { EventType, RainBirdService } from '../dist/index.js'
 
 // Create the RainBird service
 const rainbird = new RainBirdService({
-    address: '<0.0.0.0>', // Replace with your RainBird controller's IP address
-    password: '<password>', // Replace with your RainBird controller's password
-    refreshRate: 90,
-    showRequestResponse: true,
-    syncTime: true,
-});
+  address: '<0.0.0.0>', // Replace with your RainBird controller's IP address
+  password: '<password>', // Replace with your RainBird controller's password
+  refreshRate: 90,
+  showRequestResponse: true,
+  syncTime: true,
+})
 
 rainbird.on(EventType.LOG, (log) => {
-    console.log(`${log.level}: ${log.message}`);
-});
+  console.log(`${log.level}: ${log.message}`)
+})
 
-var metadata = await rainbird.init();
+const metadata = await rainbird.init()
 
-console.log('RainBird Metadata:', metadata);
+console.log('RainBird Metadata:', metadata)

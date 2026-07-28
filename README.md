@@ -4,12 +4,12 @@
 
 # Rainbird
 
-<a href="https://www.npmjs.com/package/rainbird"><img title="npm version" src="https://badgen.net/npm/v/rainbird?icon=npm&label" ></a>
-<a href="https://www.npmjs.com/package/rainbird"><img title="npm downloads" src="https://badgen.net/npm/dt/rainbird?label=downloads" ></a>
-<a href="https://discord.gg/8fpZA4S"><img title="discord-rainbird" src="https://badgen.net/discord/online-members/8fpZA4S?icon=discord&label=discord" ></a>
+<a href="https://www.npmjs.com/package/rainbird"><img alt="npm version" title="npm version" src="https://badgen.net/npm/v/rainbird?icon=npm&label" ></a>
+<a href="https://www.npmjs.com/package/rainbird"><img alt="npm downloads" title="npm downloads" src="https://badgen.net/npm/dt/rainbird?label=downloads" ></a>
+<a href="https://discord.gg/8fpZA4S"><img alt="discord-rainbird" title="discord-rainbird" src="https://badgen.net/discord/online-members/8fpZA4S?icon=discord&label=discord" ></a>
 
-<a href="https://paypal.me/donavanbecker"><img title="donavanbecker" src="https://badgen.net/badge/homebridge-plugins/paypal/yellow" ></a>
-<a href="https://paypal.me/Mantorok1"><img title="mantorok1" src="https://badgen.net/badge/mantorok1/paypal/yellow" ></a>
+<a href="https://paypal.me/donavanbecker"><img alt="donavanbecker" title="donavanbecker" src="https://badgen.net/badge/homebridge-plugins/paypal/yellow" ></a>
+<a href="https://paypal.me/Mantorok1"><img alt="mantorok1" title="mantorok1" src="https://badgen.net/badge/mantorok1/paypal/yellow" ></a>
 
 <p>The <a href="https://rainbird.com">RainBird</a>
 library allows you to access your RainBird Controller</a>.
@@ -37,6 +37,7 @@ See the [API Guide](./docs/api_guide.md) for details.
 ## Contributing
 
 We welcome contributions! Before submitting pull requests:
+
 - Ensure issues have appropriate version labels (`patch`/`minor`/`major`)
 - Target beta branches (see [COPILOT_INSTRUCTIONS.md](./COPILOT_INSTRUCTIONS.md))
 - Follow the existing code style and testing requirements

@@ -596,7 +596,7 @@ export class RainBirdClient extends events.EventEmitter {
     // crashes on the legacy packing (mirrors allenporter/pyrainbird#589)
     const packedRequest = this.toBytes(this.addPadding(formattedRequest))
     const hashedRequest = crypto.createHash('sha256').update(this.toBytes(formattedRequest)).digest()
-    // eslint-disable-next-line new-cap
+
     const easEncryptor = new aesjs.ModeOfOperation.cbc(passwordHash, randomBytes)
     const encryptedRequest = Buffer.from(easEncryptor.encrypt(packedRequest))
     return Buffer.concat([hashedRequest, randomBytes, encryptedRequest])
@@ -607,7 +607,7 @@ export class RainBirdClient extends events.EventEmitter {
       passwordHash = crypto.createHash('sha256').update(this.toBytes(this.password)).digest().subarray(0, 32)
     const randomBytes = data.subarray(32, 48)
     const encryptedBody = data.subarray(48, data.length)
-    // eslint-disable-next-line new-cap
+
     const aesDecryptor = new aesjs.ModeOfOperation.cbc(passwordHash, randomBytes)
     return new encoder.TextDecoder().decode(aesDecryptor.decrypt(encryptedBody))
   }

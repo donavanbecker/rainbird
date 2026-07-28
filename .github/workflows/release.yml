@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'beta-*'
-      - 'beta'
-      - 'latest'
+      - beta
+      - latest
   workflow_dispatch:
 
 # Cancel any in-progress workflow for the same branch. A new push should
@@ -40,10 +40,10 @@ jobs:
       id-token: write
     uses: homebridge/.github/.github/workflows/npm-publish-esm-oidc.yml@latest
     with:
-      tag: 'beta'
+      tag: beta
       dynamically_adjust_version: true
-      npm_version_command: 'pre'
-      pre_id: 'beta'
+      npm_version_command: pre
+      pre_id: beta
 
   # 4️⃣ Create GitHub pre-release
   beta-pre-release:
@@ -56,7 +56,6 @@ jobs:
         **Beta Release**
         **Version**: v${{ needs.beta-publish.outputs.NPM_VERSION }}
         [How To Test Beta Releases](https://github.com/homebridge-plugins/rainbird/wiki/Beta-Version)
-
 
   # ─── STABLE RELEASE (branch: "latest") ───────────────────────────────────────
 
