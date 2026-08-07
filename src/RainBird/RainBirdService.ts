@@ -139,8 +139,11 @@ export class RainBirdService extends events.EventEmitter {
     // Sync time
     if (this._syncTime) {
       await this.setControllerDateTime()
-      setInterval(async () => {
-        await this.setControllerDateTime()
+      // A rejection in a timer callback is unhandled and ends the host process.
+      // This is library code, so it must never take its caller down.
+      setInterval(() => {
+        this.setControllerDateTime()
+          .catch(error => this.emitLog('warn', `Could not sync the controller clock: ${error?.message ?? error}`))
       }, 3600000) // every hour
     }
 
