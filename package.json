@@ -2,7 +2,7 @@
   "name": "rainbird",
   "displayName": "Rainbird",
   "type": "module",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "The Rainbird library allows you to access your RainBird Controller.",
   "author": {
     "name": "donavanbecker",
