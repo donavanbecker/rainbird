@@ -11,7 +11,12 @@ export class ControllerFirmwareVersionResponse extends Response {
     super()
     this._major = response[1]
     this._minor = response[2]
-    this._patch = response.readUInt16BE(3)
+    // Not every controller sends the 16 bit patch field. An ST8x-WiFi2 answers
+    // this command with four bytes (8B 00 5A 00), and readUInt16BE(3) needs a
+    // fifth. It threw a RangeError, and because the request is retryable the
+    // library then re-sent it every 60 seconds forever, so the controller was
+    // usable but the log never stopped filling up.
+    this._patch = response.length >= 5 ? response.readUInt16BE(3) : (response[3] ?? 0)
   }
 
   get type(): number {

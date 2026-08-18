@@ -3,6 +3,7 @@ import { Buffer } from 'node:buffer'
 import { describe, expect, it } from 'vitest'
 
 import { AvailableZonesResponse } from './AvailableZonesResponse.js'
+import { ControllerFirmwareVersionResponse } from './ControllerFirmwareVersionResponse.js'
 import { ModelAndVersionResponse } from './ModelAndVersionResponse.js'
 
 /**
@@ -79,5 +80,33 @@ describe('availableZonesResponse', () => {
     const response = new AvailableZonesResponse(buffer(2, 0b11))
     expect(response.page).toBe(2)
     expect(response.type).toBe(0x83)
+  })
+})
+
+describe('controllerFirmwareVersionResponse', () => {
+  const buffer = (hex: string) => Buffer.from(hex, 'hex')
+
+  it('parses a reply that has no patch field', () => {
+    // An ST8x-WiFi2 answers with four bytes and stops. Reading a 16 bit patch
+    // at offset 3 needs a fifth byte, so this used to throw a RangeError -
+    // and the request is retryable, so it retried every 60 seconds for as long
+    // as the controller was configured.
+    expect(new ControllerFirmwareVersionResponse(buffer('8B005A00')).version).toBe('0.90.0')
+  })
+
+  it('still reads the patch field when the controller sends one', () => {
+    // The longer form must be untouched, or every other controller loses its
+    // patch number to fix the short one.
+    expect(new ControllerFirmwareVersionResponse(buffer('8B005A0001')).version).toBe('0.90.1')
+  })
+
+  it('reads the patch as big endian across both bytes', () => {
+    // Little endian would read 1 here, so this pins the byte order rather than
+    // passing by accident on a value under 256.
+    expect(new ControllerFirmwareVersionResponse(buffer('8B005A0100')).patch).toBe(256)
+  })
+
+  it('reports its own response type', () => {
+    expect(new ControllerFirmwareVersionResponse(buffer('8B005A00')).type).toBe(0x8B)
   })
 })
